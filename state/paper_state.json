@@ -1,0 +1,67 @@
+{
+  "topic": "Adaptive Orchestration: Runtime Topology Switching Based on Task-Structure Estimation",
+  "hypothesis": "AdaptOrch improves task success rate by 10-20% over static best-topology assignment by switching orchestration topologies at runtime based on execution trace features. Real tasks shift D-I-T (decomposability, iterativeness, tool-diversity) characteristics mid-execution, and a system that detects these phase transitions and switches to the topology best suited for the current phase outperforms any single static topology.",
+  "selected_gap_id": "GAP-001",
+  "target_venue": {
+    "name": "NeurIPS 2026",
+    "config_path": "paper/venues/neurips.md",
+    "deadline": "2026-05-06"
+  },
+  "target_paper_type": "empirical",
+  "method_name": "AdaptOrch",
+  "success_criteria": {
+    "experiment": "Implement a runtime topology switching system with 3+ canonical topologies (hierarchical, flat conversation, debate), a D-I-T feature extractor operating on execution traces, a contextual bandit switching policy, and a shared state transfer protocol. Evaluate on SWE-bench, GAIA, and WebArena tasks that exhibit within-task structural shifts.",
+    "expected_improvement": "10-20% task success rate improvement over static best-topology baseline. Demonstrate that switching decisions correlate with ground-truth phase boundaries and that switching overhead is below 5% of total execution time.",
+    "metrics": "Task success rate, switching precision/recall at phase boundaries, switching overhead (latency), token efficiency, per-phase topology-task alignment score. Statistical significance via paired bootstrap (p<0.05)."
+  },
+  "concurrent_work": {
+    "paper": "AdaptOrch: Task-Adaptive Multi-Agent Orchestration in the Era of LLM Performance Convergence (Yu, 2026, arXiv 2602.16873)",
+    "relationship": "Validates our premise (topology > model choice) but uses static per-task assignment. Our work addresses runtime switching, which their approach cannot handle.",
+    "differentiation": "We switch topologies mid-execution based on execution trace features. They select topology once per task based on task metadata. Our approach handles within-task structural shifts that static assignment misses."
+  },
+  "pipeline_stages": {
+    "discover": {
+      "status": "completed",
+      "last_run": "2026-03-16T12:00:00Z",
+      "artifacts": [
+        "paper/output/literature_map.json",
+        "paper/output/research_gaps.json",
+        "paper/output/gap_analysis_narrative.md"
+      ]
+    },
+    "outline": {
+      "status": "completed",
+      "last_run": "2026-03-16T13:00:00Z",
+      "artifacts": [
+        "paper/output/_outline_candidates.json",
+        "paper/output/_outline_scores.json",
+        "paper/output/paper_outline.json",
+        "paper/output/integration_plan.json",
+        "paper/output/sections/related_work.md"
+      ]
+    },
+    "literature": {
+      "status": "not_started"
+    },
+    "draft": {
+      "status": "not_started"
+    },
+    "review": {
+      "status": "not_started"
+    },
+    "compile": {
+      "status": "not_started"
+    },
+    "submit_check": {
+      "status": "not_started"
+    }
+  },
+  "quality_scores": {
+    "latest_overall": null,
+    "quality_threshold": 7,
+    "review_history": []
+  },
+  "quality_high_water_marks": {},
+  "current_phase": "literature",
+  "last_updated": "2026-03-16T13:00:00Z"
+}
