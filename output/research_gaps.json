@@ -1,0 +1,185 @@
+{
+  "topic": "Adaptive Multi-Agent Orchestration with Runtime Topology Switching",
+  "literature_map_ref": "paper/output/literature_map.json",
+  "gaps": [
+    {
+      "gap_id": "GAP-001",
+      "description": "All existing adaptive orchestration systems select topology per-task at dispatch time (AdaptOrch, G-Designer, DyLAN, MDAgents) or learn a fixed routing policy via RL (Evolving Orchestration, Dr. MAS). Zero papers switch topologies mid-execution based on execution trace features. Real tasks shift structural characteristics during execution: a coding task begins with decomposable planning (hierarchical wins) then transitions to iterative debugging (debate wins). No system estimates D-I-T characteristics from runtime signals and triggers topology transitions at phase boundaries.",
+      "cluster_a": {
+        "name": "adaptive-orchestration",
+        "description": "Systems that adapt multi-agent coordination at runtime or per-task, including topology selection and dynamic workflow modification.",
+        "key_papers": [
+          "ARXIV-2602.16873",
+          "ARXIV-2602.06039",
+          "ARXIV-2505.19591",
+          "ARXIV-2404.15155",
+          "ARXIV-2602.13671"
+        ]
+      },
+      "cluster_b": {
+        "name": "execution-analysis",
+        "description": "Methods for analyzing agent execution traces, diagnosing failures, and understanding collaboration dynamics.",
+        "key_papers": [
+          "ARXIV-2503.13657",
+          "ARXIV-2603.00309",
+          "ARXIV-2602.06875",
+          "MISC-AGENTRX-2026"
+        ]
+      },
+      "novelty_score": 9.5,
+      "novelty_justification": "The adaptive-orchestration cluster (7 papers) and execution-analysis cluster (4 papers) share zero cross-cluster citations. Adaptive systems select topologies based on task metadata at dispatch time. Execution analysis systems diagnose failures post-hoc from traces. No paper connects execution trace features to real-time topology switching decisions. The concurrent AdaptOrch paper (2602.16873) is the closest but explicitly uses static per-task assignment, not mid-execution switching. MAST (2503.13657) proves that execution traces contain rich structural signals but uses them only for diagnosis.",
+      "evidence": [
+        "ARXIV-2602.16873",
+        "ARXIV-2505.19591",
+        "ARXIV-2503.13657",
+        "ARXIV-2603.00309",
+        "ARXIV-2404.15155",
+        "ARXIV-2602.06039"
+      ],
+      "feasibility": {
+        "score": 7,
+        "assessment": "Requires: (1) a lightweight D-I-T feature extractor that processes execution traces in real time, (2) a switching policy (bandit or learned classifier) that triggers topology transitions, (3) state transfer mechanisms to preserve context across topology switches. The feature extractor can build on MAST's trace analysis. Topology implementations can wrap existing frameworks (AutoGen for flat, MetaGPT for hierarchical). Main risk is state transfer overhead introducing latency. Evaluation on SWE-bench and GAIA is feasible with existing benchmarks.",
+        "required_resources": [
+          "Implementations of 3+ topology wrappers with shared state protocol",
+          "D-I-T feature extractor trained on labeled execution traces",
+          "Switching policy (contextual bandit or lightweight classifier)",
+          "SWE-bench, GAIA, and WebArena benchmark access",
+          "API access for LLM evaluation (GPT-4 or Claude)",
+          "Compute for ~500 task evaluations across conditions"
+        ]
+      },
+      "recommended_framing": "A runtime topology switching system (AdaptOrch) that estimates D-I-T task-structure characteristics from execution trace features and switches between canonical topologies (hierarchical, flat, debate) at detected phase boundaries. The hypothesis is that runtime switching improves task success rate by 10-20% over the static best-topology baseline, because real tasks shift structural characteristics mid-execution.",
+      "confidence": "HIGH"
+    },
+    {
+      "gap_id": "GAP-002",
+      "description": "Topology optimization methods (MASS, AFlow, ADAS, EvoFlow, GPTSwarm) search over workflow and topology spaces offline. Model routing methods (RouteLLM, bandit-based selection) route at the query level. No paper combines topology-level optimization with runtime execution feedback to create a closed-loop system where topology performance signals feed back into the search/routing process within a single task execution.",
+      "cluster_a": {
+        "name": "topology-optimization",
+        "description": "Offline methods for searching and optimizing multi-agent topologies.",
+        "key_papers": [
+          "ARXIV-2502.02533",
+          "ARXIV-2410.10762",
+          "ARXIV-2410.11782",
+          "ARXIV-2408.08435",
+          "ARXIV-2402.16823"
+        ]
+      },
+      "cluster_b": {
+        "name": "model-routing",
+        "description": "Systems that route queries to different LLMs using bandits or learned routers.",
+        "key_papers": [
+          "ARXIV-2406.18665",
+          "ARXIV-2510.07429",
+          "ARXIV-2508.09958",
+          "MISC-BEST-ROUTE-2025"
+        ]
+      },
+      "novelty_score": 8.5,
+      "novelty_justification": "Topology optimization papers cite no routing papers and vice versa. Topology search treats the design space as static. Routing treats queries as independent. Combining both into a closed-loop system that routes at the topology level based on runtime performance signals is unexplored.",
+      "evidence": [
+        "ARXIV-2502.02533",
+        "ARXIV-2406.18665",
+        "ARXIV-2510.07429",
+        "ARXIV-2508.09958"
+      ],
+      "feasibility": {
+        "score": 6,
+        "assessment": "Challenging because topology-level performance signals are noisier and slower than query-level routing signals. Requires defining meaningful topology-level reward signals and handling the longer feedback loops. A contextual bandit approach over topologies is feasible but requires careful reward shaping.",
+        "required_resources": [
+          "Topology performance metric definitions",
+          "Contextual bandit framework adapted for topology routing",
+          "Execution trace feature extraction pipeline",
+          "Diverse evaluation benchmark suite"
+        ]
+      },
+      "recommended_framing": "Extend model routing to topology routing by defining topology-level reward signals from execution traces and using contextual bandits to select topologies at phase boundaries.",
+      "confidence": "MEDIUM"
+    },
+    {
+      "gap_id": "GAP-003",
+      "description": "Multi-agent benchmark suites (AgentBench, SWE-bench, GAIA, WebArena, MultiAgentBench) evaluate either single-agent performance or fixed multi-agent configurations. No benchmark explicitly tests adaptive systems that change orchestration strategy during execution. No evaluation protocol measures the quality of topology switching decisions separately from overall task success.",
+      "cluster_a": {
+        "name": "evaluation-benchmarks",
+        "description": "Benchmarks for evaluating LLM agent capabilities.",
+        "key_papers": [
+          "ARXIV-2503.01935",
+          "ARXIV-2308.03688",
+          "ARXIV-2310.06692",
+          "ARXIV-2307.13854"
+        ]
+      },
+      "cluster_b": {
+        "name": "adaptive-orchestration",
+        "description": "Systems that adapt multi-agent coordination at runtime.",
+        "key_papers": [
+          "ARXIV-2602.16873",
+          "ARXIV-2505.19591",
+          "ARXIV-2602.13671"
+        ]
+      },
+      "novelty_score": 8.0,
+      "novelty_justification": "Evaluation benchmarks measure task completion but not adaptation quality. Adaptive systems report overall success but do not provide per-switch evaluation. A benchmark that annotates phase boundaries and expected topology-task alignment at each phase would enable proper evaluation of adaptive orchestration.",
+      "evidence": [
+        "ARXIV-2503.01935",
+        "ARXIV-2308.03688",
+        "ARXIV-2602.16873",
+        "ARXIV-2505.19591"
+      ],
+      "feasibility": {
+        "score": 7,
+        "assessment": "Requires annotating existing benchmark tasks with phase boundaries and expected D-I-T characteristics per phase. Can build on OrchestraBench D-I-T annotations from Paper 1. Main effort is phase-level annotation.",
+        "required_resources": [
+          "Phase-annotated benchmark tasks",
+          "Per-phase D-I-T ground truth labels",
+          "Switching evaluation metrics (precision, recall, timing)"
+        ]
+      },
+      "recommended_framing": "A phase-annotated evaluation protocol that measures both task success and switching decision quality for adaptive orchestration systems.",
+      "confidence": "MEDIUM"
+    },
+    {
+      "gap_id": "GAP-004",
+      "description": "The model routing literature (RouteLLM, bandit-based LLM selection) demonstrates that learned routing between models reduces cost while maintaining quality. The multi-agent topology literature shows that different topologies suit different task structures. No paper applies the routing paradigm at the topology level, routing execution phases to different topologies rather than routing queries to different models.",
+      "cluster_a": {
+        "name": "model-routing",
+        "description": "Learned routing between LLM models.",
+        "key_papers": [
+          "ARXIV-2406.18665",
+          "ARXIV-2510.07429",
+          "ARXIV-2508.09958"
+        ]
+      },
+      "cluster_b": {
+        "name": "multi-agent-frameworks",
+        "description": "Frameworks implementing specific orchestration topologies.",
+        "key_papers": [
+          "ARXIV-2308.08155",
+          "ARXIV-2308.00352",
+          "ARXIV-2307.07924"
+        ]
+      },
+      "novelty_score": 8.0,
+      "novelty_justification": "Model routing and multi-agent framework papers share zero cross-citations. The routing paradigm (bandit, learned classifier) is well-established for model selection but has never been applied to topology selection at the execution-phase level.",
+      "evidence": [
+        "ARXIV-2406.18665",
+        "ARXIV-2308.08155",
+        "ARXIV-2308.00352",
+        "ARXIV-2510.07429"
+      ],
+      "feasibility": {
+        "score": 7,
+        "assessment": "Technically straightforward to adapt routing frameworks from model-level to topology-level. The key challenge is defining the feature space for topology routing and establishing meaningful reward signals.",
+        "required_resources": [
+          "Topology implementations with uniform interfaces",
+          "Routing feature extractor for execution phases",
+          "Reward signal definitions for topology routing"
+        ]
+      },
+      "recommended_framing": "Apply the model routing paradigm (contextual bandits, learned classifiers) at the topology level, routing execution phases to different orchestration topologies based on estimated task-structure features.",
+      "confidence": "MEDIUM"
+    }
+  ],
+  "scoring_formula": "Ranking = novelty * 0.60 + feasibility * 0.30 + confidence * 0.10",
+  "date_generated": "2026-03-16T12:30:00Z"
+}
