@@ -1,0 +1,271 @@
+{
+  "candidates": [
+    {
+      "id": "candidate_a",
+      "strategy": "problem-first",
+      "rationale": "Opens with the practical failure case: a SWE-bench coding task where hierarchical orchestration nails the planning phase but collapses during debugging because the task structure shifted from decomposable to iterative. This concrete failure motivates the entire paper and makes the contribution feel necessary. The problem-first frame resonates with practitioners who have watched their multi-agent pipelines succeed on one phase and fail on the next.",
+      "sections": [
+        {
+          "id": "introduction",
+          "title": "Introduction",
+          "word_count_target": 1200,
+          "citation_density": "6-10",
+          "figure_slots": ["fig:phase_transition_example"],
+          "agent": "paper-section-writer",
+          "subsections": ["1.1 The Phase Transition Problem", "1.2 Static Topology Assignment Fails Mid-Task", "1.3 Contributions and Paper Organization"],
+          "connects_to": "related_work",
+          "argumentation_note": "Open with a concrete SWE-bench task showing phase transition: planning (high-D) succeeds under hierarchy, debugging (high-I) fails under same hierarchy. Quantify the cost of static assignment. State hypothesis and four contributions: (1) D-I-T feature extractor from execution traces, (2) phase boundary detection, (3) contextual bandit switching policy, (4) shared state transfer protocol."
+        },
+        {
+          "id": "related_work",
+          "title": "Related Work",
+          "word_count_target": 1200,
+          "citation_density": "15-25",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["2.1 Static Topology Selection and Optimization", "2.2 Dynamic Agent Composition Without Topology Switching", "2.3 Execution Trace Analysis and Failure Diagnosis", "2.4 Model Routing and the Bandit Paradigm", "2.5 Gap: No Runtime Topology Switching"],
+          "connects_to": "methods",
+          "argumentation_note": "Organize by five threads converging on the gap. Each thread contributes a piece of the solution but none assembles them."
+        },
+        {
+          "id": "methods",
+          "title": "AdaptOrch: Runtime Topology Switching via Task-Structure Estimation",
+          "word_count_target": 2000,
+          "citation_density": "5-8",
+          "figure_slots": ["fig:system_architecture", "fig:dit_feature_extraction", "fig:switching_protocol"],
+          "agent": "paper-section-writer",
+          "subsections": ["3.1 System Overview", "3.2 D-I-T Feature Extractor", "3.3 Phase Boundary Detection", "3.4 Contextual Bandit Switching Policy", "3.5 Shared State Transfer Protocol", "3.6 Topology Implementations"],
+          "connects_to": "experiments",
+          "argumentation_note": "Present the four-component architecture. Feature extractor computes rolling D-I-T estimates. Change-point detector identifies phase boundaries. Contextual bandit selects topology. State transfer preserves context across switches."
+        },
+        {
+          "id": "experiments",
+          "title": "Experimental Setup",
+          "word_count_target": 900,
+          "citation_density": "3-5",
+          "figure_slots": ["tab:benchmark_statistics", "fig:phase_annotation"],
+          "agent": "paper-section-writer",
+          "subsections": ["4.1 Benchmark Selection and Phase Annotation", "4.2 Topology Implementations", "4.3 Baselines", "4.4 Implementation Details"],
+          "connects_to": "results",
+          "argumentation_note": "Detail phase annotations on SWE-bench, GAIA, and WebArena tasks. Six baselines including concurrent AdaptOrch (Yu 2026) static selection."
+        },
+        {
+          "id": "results",
+          "title": "Results",
+          "word_count_target": 1200,
+          "citation_density": "2-4",
+          "figure_slots": ["tab:main_results", "fig:switching_precision", "fig:success_by_phase_count", "fig:overhead_analysis"],
+          "agent": "paper-section-writer",
+          "subsections": ["5.1 Main Results: Success Rate Across Benchmarks", "5.2 Switching Decision Quality", "5.3 When Does Switching Help Most?", "5.4 Overhead Analysis", "5.5 Ablation Studies"],
+          "connects_to": "discussion",
+          "argumentation_note": "Lead with main results table. Key finding: switching helps most on multi-phase tasks with high D-I-T variance."
+        },
+        {
+          "id": "discussion",
+          "title": "Discussion",
+          "word_count_target": 800,
+          "citation_density": "3-5",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["6.1 Why Static Assignment Leaves Performance on the Table", "6.2 The Feature Extractor as a Task-Structure Sensor", "6.3 Limitations and When Switching Hurts", "6.4 Toward Continuous Topology Spaces"],
+          "connects_to": "conclusion",
+          "argumentation_note": "Interpret results through task-structure theory. Discuss failure cases and future directions."
+        },
+        {
+          "id": "conclusion",
+          "title": "Conclusion",
+          "word_count_target": 400,
+          "citation_density": "1-2",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": [],
+          "connects_to": null,
+          "argumentation_note": "Summarize four contributions. Future work: learned continuous topologies, cross-task transfer."
+        }
+      ],
+      "scores": {
+        "flow": 9,
+        "novelty": 9,
+        "engagement": 9
+      }
+    },
+    {
+      "id": "candidate_b",
+      "strategy": "insight-first",
+      "rationale": "Opens with the theoretical insight that orchestration topologies encode implicit structural priors about tasks, formalizable as distributions in D-I-T space. When a task trajectory crosses a topology boundary, the system should switch. Formally rigorous framing that appeals to theory-oriented NeurIPS reviewers, but risks losing practitioners.",
+      "sections": [
+        {
+          "id": "introduction",
+          "title": "Introduction",
+          "word_count_target": 1200,
+          "citation_density": "6-10",
+          "figure_slots": ["fig:dit_trajectory"],
+          "agent": "paper-section-writer",
+          "subsections": ["1.1 Topologies as Structural Priors in D-I-T Space", "1.2 Task Trajectories Cross Topology Boundaries", "1.3 Contributions"],
+          "connects_to": "background",
+          "argumentation_note": "Open with geometric framing. Topology switching as boundary crossing in task-structure space."
+        },
+        {
+          "id": "background",
+          "title": "Background and Formalization",
+          "word_count_target": 800,
+          "citation_density": "8-12",
+          "figure_slots": ["fig:topology_regions"],
+          "agent": "paper-section-writer",
+          "subsections": ["2.1 D-I-T Task-Structure Dimensions", "2.2 Topology-Task Alignment Framework", "2.3 Phase Transitions in Task Execution"],
+          "connects_to": "related_work",
+          "argumentation_note": "Formalize D-I-T dimensions and phase transitions."
+        },
+        {
+          "id": "related_work",
+          "title": "Related Work",
+          "word_count_target": 1000,
+          "citation_density": "15-20",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["3.1 Topology Design and Optimization", "3.2 Adaptive Multi-Agent Systems", "3.3 Execution Analysis and Runtime Monitoring"],
+          "connects_to": "methods",
+          "argumentation_note": "Shorter related work organized by three threads."
+        },
+        {
+          "id": "methods",
+          "title": "AdaptOrch: Boundary-Crossing Topology Switching",
+          "word_count_target": 1800,
+          "citation_density": "4-6",
+          "figure_slots": ["fig:system_architecture", "fig:boundary_detection"],
+          "agent": "paper-section-writer",
+          "subsections": ["4.1 Real-Time D-I-T Estimation", "4.2 Boundary Crossing Detection", "4.3 Topology Transition Protocol", "4.4 Regret-Minimizing Selection"],
+          "connects_to": "experiments",
+          "argumentation_note": "Frame switching as boundary crossing with regret minimization."
+        },
+        {
+          "id": "experiments",
+          "title": "Experiments",
+          "word_count_target": 800,
+          "citation_density": "3-5",
+          "figure_slots": ["tab:benchmarks"],
+          "agent": "paper-section-writer",
+          "subsections": ["5.1 Setup", "5.2 Baselines", "5.3 Phase Annotation Protocol"],
+          "connects_to": "results",
+          "argumentation_note": "Standard setup."
+        },
+        {
+          "id": "results",
+          "title": "Results and Analysis",
+          "word_count_target": 1200,
+          "citation_density": "2-4",
+          "figure_slots": ["tab:main_results", "fig:dit_trajectories", "fig:regret_analysis"],
+          "agent": "paper-section-writer",
+          "subsections": ["6.1 Main Results", "6.2 Trajectory Analysis", "6.3 Regret Decomposition", "6.4 Ablations"],
+          "connects_to": "discussion",
+          "argumentation_note": "Present through regret lens."
+        },
+        {
+          "id": "discussion",
+          "title": "Discussion and Conclusion",
+          "word_count_target": 700,
+          "citation_density": "3-5",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["7.1 Insights", "7.2 Limitations", "7.3 Future Work"],
+          "connects_to": null,
+          "argumentation_note": "Combined discussion and conclusion."
+        }
+      ],
+      "scores": {
+        "flow": 7,
+        "novelty": 9,
+        "engagement": 7
+      }
+    },
+    {
+      "id": "candidate_c",
+      "strategy": "evidence-first",
+      "rationale": "Opens by contrasting model routing (RouteLLM) with topology routing. Leverages reader familiarity with the routing paradigm and positions the contribution as a natural elevation from model-level to topology-level. Strong for routing community readers but may feel derivative.",
+      "sections": [
+        {
+          "id": "introduction",
+          "title": "Introduction",
+          "word_count_target": 1200,
+          "citation_density": "6-10",
+          "figure_slots": ["fig:model_vs_topology_routing"],
+          "agent": "paper-section-writer",
+          "subsections": ["1.1 Model Routing Works: Can We Route Topologies?", "1.2 The Phase-Level Routing Problem", "1.3 Contributions"],
+          "connects_to": "related_work",
+          "argumentation_note": "Open with RouteLLM analogy and extend to topology level."
+        },
+        {
+          "id": "related_work",
+          "title": "Related Work",
+          "word_count_target": 1200,
+          "citation_density": "15-25",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["2.1 Model Routing and Selection", "2.2 Multi-Agent Topology Design", "2.3 Execution-Aware Adaptation", "2.4 Bridging Routing and Topology"],
+          "connects_to": "methods",
+          "argumentation_note": "Organize around the routing-topology bridge."
+        },
+        {
+          "id": "methods",
+          "title": "AdaptOrch: Topology Routing at Runtime",
+          "word_count_target": 1800,
+          "citation_density": "5-8",
+          "figure_slots": ["fig:system_architecture", "fig:routing_decisions"],
+          "agent": "paper-section-writer",
+          "subsections": ["3.1 From Model Routing to Topology Routing", "3.2 Execution Trace Features as Routing Context", "3.3 Contextual Bandit over Topologies", "3.4 State Handoff Protocol"],
+          "connects_to": "experiments",
+          "argumentation_note": "Frame as topology routing with execution trace context."
+        },
+        {
+          "id": "experiments",
+          "title": "Experimental Setup",
+          "word_count_target": 900,
+          "citation_density": "3-5",
+          "figure_slots": ["tab:benchmarks"],
+          "agent": "paper-section-writer",
+          "subsections": ["4.1 Benchmarks and Phase Annotations", "4.2 Topology Arms", "4.3 Baselines Including Static Routers"],
+          "connects_to": "results",
+          "argumentation_note": "Include model-routing baselines."
+        },
+        {
+          "id": "results",
+          "title": "Results",
+          "word_count_target": 1200,
+          "citation_density": "2-4",
+          "figure_slots": ["tab:main_results", "fig:routing_accuracy", "fig:cost_benefit"],
+          "agent": "paper-section-writer",
+          "subsections": ["5.1 Main Results", "5.2 Routing Decision Analysis", "5.3 Cost-Benefit of Switching", "5.4 Ablations"],
+          "connects_to": "discussion",
+          "argumentation_note": "Routing accuracy and cost-benefit alongside task success."
+        },
+        {
+          "id": "discussion",
+          "title": "Discussion",
+          "word_count_target": 700,
+          "citation_density": "3-5",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": ["6.1 Topology Routing as a General Paradigm", "6.2 Limitations", "6.3 Future Work"],
+          "connects_to": "conclusion",
+          "argumentation_note": "Position topology routing as general paradigm."
+        },
+        {
+          "id": "conclusion",
+          "title": "Conclusion",
+          "word_count_target": 400,
+          "citation_density": "1-2",
+          "figure_slots": [],
+          "agent": "paper-section-writer",
+          "subsections": [],
+          "connects_to": null,
+          "argumentation_note": "Brief conclusion."
+        }
+      ],
+      "scores": {
+        "flow": 8,
+        "novelty": 7,
+        "engagement": 8
+      }
+    }
+  ]
+}

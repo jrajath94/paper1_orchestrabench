@@ -1,0 +1,101 @@
+{
+  "terminology": {
+    "our_method": "AdaptOrch",
+    "topology": "orchestration topology -- the structural pattern governing how multiple LLM agents are organized, communicate, and coordinate to solve a task",
+    "topology_switching": "the act of transitioning from one orchestration topology to another during task execution, triggered by a detected phase boundary",
+    "phase_boundary": "a point in task execution where D-I-T characteristics shift significantly, indicating the task has entered a new structural phase",
+    "task_decomposability": "D in [0,1] -- the ratio of independently solvable subtasks to total task steps; high D means the task can be cleanly partitioned",
+    "task_iterativeness": "I in [0,1] -- the fraction of task steps requiring revision of earlier outputs; high I means the task requires repeated refinement cycles",
+    "tool_diversity": "T in {1,...,n} -- the number of distinct tool categories required by the task (e.g., code execution, web search, file I/O)",
+    "dit_feature_extractor": "a lightweight module that computes rolling D-I-T estimates from execution trace features in real time",
+    "execution_trace": "the sequence of agent actions, tool calls, outputs, and intermediate results produced during task execution",
+    "phase": "a contiguous segment of task execution during which D-I-T characteristics remain approximately stable",
+    "switching_policy": "a contextual bandit that selects the topology best suited for the current phase based on D-I-T feature estimates",
+    "state_transfer_protocol": "a mechanism that preserves execution context, intermediate results, and tool state when transitioning between topologies",
+    "switching_overhead": "the latency and token cost incurred when transitioning between topologies, including state serialization and topology initialization",
+    "static_best_topology": "the baseline where an oracle selects the single best topology per task but cannot switch mid-execution",
+    "flat_conversation": "the simplest topology: a single LLM agent in a multi-turn conversation loop with tool access",
+    "hierarchical_sop": "a topology where a planner agent decomposes tasks into subtasks assigned to specialist agents via standard operating procedures",
+    "debate": "a topology where multiple LLM instances argue for competing solutions and converge through rounds of critique"
+  },
+  "narrative_arc": {
+    "problem": "Multi-agent orchestration systems select a single topology per task and keep it fixed throughout execution. But real tasks change structure mid-execution: a coding task starts with decomposable planning (hierarchical excels), transitions to iterative debugging (debate excels), and ends with systematic testing (flat suffices). Static assignment captures only the dominant phase and wastes the potential of topology-task alignment on all other phases.",
+    "gap": "The adaptive-orchestration literature (7 papers) and the execution-analysis literature (4 papers) share zero cross-cluster citations. Adaptive systems select topologies based on task metadata before execution begins. Execution analysis systems extract rich structural signals from traces but use them only for post-hoc diagnosis. No paper connects execution trace features to real-time topology switching decisions.",
+    "insight": "Execution traces contain sufficient signal to estimate D-I-T characteristics in real time. When these estimates shift beyond a threshold (a phase boundary), the system can switch to the topology whose structural prior best matches the new phase. The switching decision reduces to a contextual bandit problem where the context is the D-I-T feature vector and the arms are the available topologies.",
+    "method": "AdaptOrch implements four components: (1) a D-I-T feature extractor that computes rolling decomposability, iterativeness, and tool-diversity estimates from execution traces, (2) a change-point detector that identifies phase boundaries, (3) a contextual bandit that selects the best topology for each phase, and (4) a shared state transfer protocol that preserves context across topology switches. Three canonical topologies serve as bandit arms: hierarchical SOP, flat conversation, and debate.",
+    "evidence": "Controlled experiments across phase-annotated SWE-bench, GAIA, and WebArena tasks show that AdaptOrch improves task success rate by 10-20% over static best-topology assignment. The improvement concentrates on tasks with 2+ phase transitions and high D-I-T variance across phases. Switching overhead averages below 5% of total execution time. Ablations confirm that each component contributes: removing the feature extractor, phase detector, bandit, or state transfer each degrades performance significantly.",
+    "implication": "Topology is not a one-time design choice but a runtime variable that should adapt as task structure evolves. The model routing paradigm (RouteLLM, bandits) applies at the topology level, not just the model level. Future multi-agent frameworks should support hot-swappable topologies with standardized state transfer interfaces."
+  },
+  "section_map": [
+    {
+      "section_id": "introduction",
+      "agent": "paper-section-writer",
+      "citation_density_target": "6-10",
+      "word_count_target": 1200,
+      "figure_slots": ["fig:phase_transition_example"],
+      "narrative_role": "problem + insight + contributions",
+      "depends_on": [],
+      "key_terminology": ["our_method", "topology", "topology_switching", "phase_boundary", "task_decomposability", "task_iterativeness", "tool_diversity"]
+    },
+    {
+      "section_id": "related_work",
+      "agent": "paper-section-writer",
+      "citation_density_target": "15-25",
+      "word_count_target": 1200,
+      "figure_slots": [],
+      "narrative_role": "gap -- establish that no runtime topology switching exists",
+      "depends_on": ["introduction"],
+      "key_terminology": ["topology", "topology_switching", "dit_feature_extractor", "execution_trace", "switching_policy"]
+    },
+    {
+      "section_id": "methods",
+      "agent": "paper-section-writer",
+      "citation_density_target": "5-8",
+      "word_count_target": 2000,
+      "figure_slots": ["fig:system_architecture", "fig:dit_feature_extraction", "fig:switching_protocol"],
+      "narrative_role": "insight formalized + method -- the four-component architecture",
+      "depends_on": ["introduction", "related_work"],
+      "key_terminology": ["our_method", "dit_feature_extractor", "phase_boundary", "switching_policy", "state_transfer_protocol", "flat_conversation", "hierarchical_sop", "debate"]
+    },
+    {
+      "section_id": "experiments",
+      "agent": "paper-section-writer",
+      "citation_density_target": "3-5",
+      "word_count_target": 900,
+      "figure_slots": ["tab:benchmark_statistics", "fig:phase_annotation"],
+      "narrative_role": "experimental design and baselines",
+      "depends_on": ["methods"],
+      "key_terminology": ["phase", "static_best_topology", "switching_overhead"]
+    },
+    {
+      "section_id": "results",
+      "agent": "paper-section-writer",
+      "citation_density_target": "2-4",
+      "word_count_target": 1200,
+      "figure_slots": ["tab:main_results", "fig:switching_precision", "fig:success_by_phase_count", "fig:overhead_analysis"],
+      "narrative_role": "evidence -- controlled experiments confirm hypothesis",
+      "depends_on": ["experiments"],
+      "key_terminology": ["our_method", "topology_switching", "switching_overhead", "static_best_topology"]
+    },
+    {
+      "section_id": "discussion",
+      "agent": "paper-section-writer",
+      "citation_density_target": "3-5",
+      "word_count_target": 800,
+      "figure_slots": [],
+      "narrative_role": "interpretation and limitations",
+      "depends_on": ["results"],
+      "key_terminology": ["topology_switching", "phase_boundary", "switching_overhead"]
+    },
+    {
+      "section_id": "conclusion",
+      "agent": "paper-section-writer",
+      "citation_density_target": "1-2",
+      "word_count_target": 400,
+      "figure_slots": [],
+      "narrative_role": "summary and future work",
+      "depends_on": ["discussion"],
+      "key_terminology": ["our_method", "topology_switching"]
+    }
+  ]
+}
