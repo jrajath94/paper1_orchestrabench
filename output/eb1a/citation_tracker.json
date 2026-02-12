@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "paper": {
+    "title": "",
+    "authors": [],
+    "venue": "NeurIPS 2026",
+    "year": 2026,
+    "doi": null,
+    "arxiv_id": null,
+    "semantic_scholar_id": null,
+    "openalex_id": null,
+    "publication_date": null,
+    "abstract": ""
+  },
+  "tracking_config": {
+    "sources": [
+      {
+        "name": "google_scholar",
+        "url": "https://scholar.google.com/",
+        "update_frequency": "monthly"
+      },
+      {
+        "name": "semantic_scholar",
+        "url": "https://api.semanticscholar.org/",
+        "update_frequency": "monthly"
+      },
+      {
+        "name": "openalex",
+        "url": "https://api.openalex.org/",
+        "update_frequency": "monthly"
+      }
+    ],
+    "alert_thresholds": {
+      "citation_milestones": [10, 25, 50, 100],
+      "notable_venues": ["NeurIPS", "ICML", "ICLR", "AAAI", "Nature", "Science"]
+    }
+  },
+  "snapshots": [],
+  "citing_papers": [],
+  "eb1a_metrics": {
+    "total_citations": 0,
+    "independent_citations": 0,
+    "international_citations": 0,
+    "industry_citations": 0,
+    "self_citations": 0,
+    "h_index_contribution": 0,
+    "field_weighted_citation_impact": null
+  },
+  "last_updated": null,
+  "notes": "Pre-populated at submission time. Update monthly post-publication using Semantic Scholar and OpenAlex APIs."
+}
