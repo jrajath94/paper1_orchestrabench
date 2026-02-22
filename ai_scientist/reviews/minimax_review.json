@@ -1,0 +1,50 @@
+{
+  "Summary": "The paper introduces OrchestraBench, a controlled benchmark for evaluating multi-agent LLM orchestration topologies (flat conversation, hierarchical decomposition, multi-agent debate) on 82 custom tasks spanning coding, research, and reasoning. The key contribution is a D-I-T framework (Decomposability, Iterativeness, Tool diversity) that characterizes both task demands and topology structural priors, enabling principled topology selection. Through 794 runs across three seeds, the paper demonstrates that topology-task alignment predicts performance: hierarchical reaches 75% on high-D tasks vs 42% for debate (+33pp), while debate reaches 77% on high-I tasks vs 14% for hierarchical (+63pp). A DIT routing classifier selects the best topology with 90% accuracy (bootstrap 95% CI: [84%, 95%]), and a control experiment shows topology structure accounts for two-thirds of the multi-agent advantage over compute alone.",
+  "Strengths": [
+    "Well-motivated research question addressing a critical gap: practitioners choose among 18+ multi-agent frameworks with no principled selection basis",
+    "Rigorous controlled experimental design isolating the topology variable (same LLM backbone, tools, budget across all topologies)",
+    "Substantial sample size (794 runs across 3 seeds) with thorough statistical analysis (Cohen's d > 2, Holm-Bonferroni correction)",
+    "Novel D-I-T framework that formalizes topology-task alignment and produces testable predictions",
+    "Practical DIT routing classifier achieving 90% accuracy against 33% random baseline with interpretable confidence intervals",
+    "Comprehensive failure mode taxonomy showing structural mirrors between hierarchical and debate failure patterns",
+    "Control experiments isolating structure from compute, demonstrating topology accounts for ~2/3 of multi-agent advantage",
+    "Artifacts released (task suite, annotations, scripts) enabling reproduction"
+  ],
+  "Weaknesses": [
+    "Only 3 of 5 characterized topologies evaluated; role-playing and RL-orchestrated topologies remain unvalidated",
+    "Tasks are author-created with no third-party annotation; potential for authorship bias",
+    "Primary evaluation uses only Claude Opus 4.6; Sonnet 4.6 check limited to 12 easy tasks (ceiling effect)",
+    "DIT scores assigned by authors (\u03ba\u22650.79 but no external validation); annotator agreement may not hold across different annotator populations",
+    "Limited domain coverage (coding, research, reasoning); missing creative generation, long-document analysis, embodied control",
+    "Flat-2\u00d7 control experiment is small (20 hard tasks) and uses a single 2\u00d7 budget point rather than a full curve",
+    "Hard task accuracy is low overall (flat at 18.6%) which may limit the practical significance of some comparisons",
+    "Binary correct/incorrect scoring may lose nuance; partial credit analysis exists but is not prominently featured",
+    "Model-topology interactions across LLM families remain untested"
+  ],
+  "Originality": 4,
+  "Quality": 3,
+  "Clarity": 4,
+  "Significance": 4,
+  "Questions": [
+    "Could you clarify the alignment distance formula in Section 3.3? The picture appears to be intentionally omitted. Is this Euclidean distance with learned weights, and how were the topology priors (0.2, 0.8, 0.3) for flat estimated?",
+    "The flat-2\u00d7 control experiment uses 2\u00d7 budget, but would a budget-matched experiment with 2 flat agents (2\u00d7 agents at 1\u00d7 budget) show different results? This would isolate agent count from compute budget.",
+    "How were the 70 hard tasks calibrated? The low flat accuracy (18.6%) suggests they may be too difficult for meaningful comparison. Was there a target accuracy range for hard tasks?",
+    "Table 12 shows hierarchical achieves 0% on high-I tasks and debate achieves 33% on high-D tasks. Are these statistically reliable given sample sizes?",
+    "How sensitive is the routing classifier to D-I-T annotation noise? If a practitioner misestimates D or I by \u00b10.15, does routing accuracy drop substantially?"
+  ],
+  "Limitations": [
+    "Limited topology evaluation (3 of 5 characterized) may not generalize to other orchestration patterns",
+    "Author-created tasks introduce potential bias; third-party validation of D-I-T annotations is needed",
+    "Single primary LLM backbone (Claude Opus 4.6) limits generalizability across model families",
+    "Limited domain coverage; framework may not apply to creative generation, embodied control, or long-document tasks",
+    "Small-scale control experiments (20 tasks for flat-2\u00d7) provide directional evidence but need replication",
+    "Binary scoring may miss qualitative differences in partial solutions"
+  ],
+  "Ethical Concerns": false,
+  "Soundness": 3,
+  "Presentation": 4,
+  "Contribution": 3,
+  "Overall": 7,
+  "Confidence": 4,
+  "Decision": "Accept"
+}

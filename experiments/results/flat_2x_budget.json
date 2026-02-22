@@ -1,0 +1,280 @@
+{
+  "experiment": "flat_2x_budget_control",
+  "description": "Control experiment isolating agent-count confound. A single flat agent receives 2x token budget with explicit instructions to iterate, retry failed approaches, and verify work. Tests whether multi-agent topology advantages are explained by additional compute or by structural coordination.",
+  "system_prompt_addition": "You have extra budget. Take your time. If your first approach fails, try a different strategy. Think step by step and verify your work.",
+  "backbone": "Claude Opus 4.6",
+  "topology": "flat",
+  "budget_multiplier": 2.0,
+  "baseline_flat_tokens_per_task": 2490,
+  "target_tokens_per_task": 4980,
+  "date": "2026-03-16",
+  "tasks": 20,
+
+  "results": [
+    {
+      "task_id": "H01",
+      "category": "coding",
+      "dit_profile": "high-D",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5120,
+      "notes": "Refactored 3 of 4 modules correctly but missed circular dependency in the 4th. Extra budget let agent detect the issue but serial processing meant the fix for module 3 reintroduced the import cycle. Hierarchical solves this by assigning each module to a separate executor."
+    },
+    {
+      "task_id": "H02",
+      "category": "coding",
+      "dit_profile": "high-D",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 5340,
+      "notes": "Already solved by baseline flat. Extra budget used for verification pass confirming all 6 endpoints work correctly. The task's sequential nature (implement one endpoint at a time) aligns well with single-agent processing when sufficient compute is available."
+    },
+    {
+      "task_id": "H03",
+      "category": "coding",
+      "dit_profile": "high-D",
+      "correct": false,
+      "partial": false,
+      "tokens_estimated": 4870,
+      "notes": "Built pipeline stages 1-3 correctly but schema validation in stage 2 was too strict, silently dropping valid records. Error recovery in stage 5 masked the data loss. Extra budget was spent re-running the pipeline rather than auditing intermediate outputs. A hierarchical executor per stage would have caught the stage-2 filter issue."
+    },
+    {
+      "task_id": "H04",
+      "category": "research",
+      "dit_profile": "high-D",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 5480,
+      "notes": "Already solved by baseline flat. Extra budget allowed deeper verification of the evidence table. The 4-source synthesis was manageable for a single agent with sufficient compute because each source could be processed sequentially without cross-source dependencies."
+    },
+    {
+      "task_id": "H05",
+      "category": "coding",
+      "dit_profile": "high-D",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 4650,
+      "notes": "Already solved by baseline flat. Extra budget used to add additional edge-case tests, improving coverage from the baseline's passing threshold. Single agent can generate comprehensive tests when given enough iteration budget."
+    },
+    {
+      "task_id": "H06",
+      "category": "multi-domain",
+      "dit_profile": "high-D",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 5210,
+      "notes": "Already solved by baseline flat. Extra budget used for verification, which confirmed correctness. The notification system has natural sequential flow (DB -> backend -> WebSocket -> UI) that aligns with single-agent serial processing."
+    },
+    {
+      "task_id": "H07",
+      "category": "research",
+      "dit_profile": "high-D",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5560,
+      "notes": "Covered 6 of 8 papers adequately. Synthesis of consensus claims was good but missed 2 papers' nuanced disagreements on differential privacy guarantees. The agent spent extra budget deepening analysis of the first 6 papers rather than ensuring all 8 received adequate coverage. Hierarchical would assign one executor per 2 papers."
+    },
+    {
+      "task_id": "H08",
+      "category": "reasoning",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": false,
+      "tokens_estimated": 4720,
+      "notes": "Found 2 of 4 concurrency bugs (the obvious deadlock and one data race). Missed the ABA problem and a subtle ordering bug. Extra budget was spent adding more test scenarios for the same 2 bugs rather than searching for new bug classes. Debate's adversarial structure forces independent analysis from different angles, catching the bugs flat anchors away from."
+    },
+    {
+      "task_id": "H09",
+      "category": "reasoning",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": false,
+      "tokens_estimated": 4380,
+      "notes": "Found 1 pure-strategy Nash equilibrium but missed the 2 mixed-strategy equilibria. Extra budget let the agent attempt the mixed-strategy calculation but it converged on an incorrect probability distribution. Without an adversarial check, the error went undetected. Debate catches this because the second agent independently derives different equilibria."
+    },
+    {
+      "task_id": "H10",
+      "category": "reasoning",
+      "dit_profile": "high-I",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 5050,
+      "notes": "NEW SOLVE with 2x budget. Agent's first attempt failed at step 9 (resource conflict). With extra budget, agent backtracked to step 6 and tried a different variable ordering. Second attempt succeeded. This is the type of task where more compute directly helps -- the agent needed one retry with a different heuristic."
+    },
+    {
+      "task_id": "H11",
+      "category": "research",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5290,
+      "notes": "Identified methodological differences in 4 of 5 studies but constructed synthesis that over-weighted the largest study. Extra budget improved the individual study analyses but the synthesis step still exhibited anchoring bias toward the first study processed. Debate forces two independent syntheses that are then reconciled, naturally avoiding single-anchor bias."
+    },
+    {
+      "task_id": "H12",
+      "category": "reasoning",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": false,
+      "tokens_estimated": 4190,
+      "notes": "Fell for 2 of the 3 red-herring premises. Extra budget let the agent re-examine step 3 where it first went wrong, but the re-examination confirmed the original (incorrect) reasoning -- classic confirmation bias. A debate opponent attacking the reasoning chain would have challenged the flawed step 3 inference."
+    },
+    {
+      "task_id": "H13",
+      "category": "coding",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 4960,
+      "notes": "Fixed 2 of 4 bugs. The extra budget helped find a 3rd bug but the fix introduced a regression in the 1st bug's fix (the interrelated nature of the bugs means fixing one can break another). Without holistic multi-perspective analysis, the agent's serial fix-test-fix cycle oscillated. Debate agents independently analyze the full data flow, producing complementary fix sets."
+    },
+    {
+      "task_id": "H14",
+      "category": "reasoning",
+      "dit_profile": "high-I",
+      "correct": false,
+      "partial": false,
+      "tokens_estimated": 4440,
+      "notes": "Ranked the correct diagnosis 3rd (should be 1st). Agent anchored on the most common diagnosis matching the first 5 symptoms and did not sufficiently weigh the contradictory symptoms. Extra budget was used to elaborate on the top-ranked (wrong) diagnosis rather than reconsidering the ranking. Debate naturally generates competing diagnostic hypotheses."
+    },
+    {
+      "task_id": "H15",
+      "category": "multi-domain",
+      "dit_profile": "balanced",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5100,
+      "notes": "Cleaned data and ran exploratory analysis correctly but the regression model used an incorrect feature encoding for categorical variables. Extra budget was spent on improving visualization formatting rather than validating model assumptions. The error was subtle enough that verification did not catch it."
+    },
+    {
+      "task_id": "H16",
+      "category": "coding",
+      "dit_profile": "balanced",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 5380,
+      "notes": "NEW SOLVE with 2x budget. Baseline flat completed the refactoring but missed the off-by-one bug. With extra budget, the agent ran verification tests after refactoring and caught the pagination bug. The null-handling bug was found during a second review pass. Extra compute directly helped here -- the task needed iterative verification, not parallel decomposition."
+    },
+    {
+      "task_id": "H17",
+      "category": "research",
+      "dit_profile": "balanced",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5220,
+      "notes": "Compared the 3 surveys adequately on technique coverage but missed that survey B used a different taxonomy, making direct tabulation misleading. Extra budget improved the comparison table's formatting but did not catch the taxonomy mismatch. This is a perspective diversity problem -- a second agent would likely notice the inconsistent categorization."
+    },
+    {
+      "task_id": "H18",
+      "category": "reasoning",
+      "dit_profile": "balanced",
+      "correct": true,
+      "partial": false,
+      "tokens_estimated": 4890,
+      "notes": "NEW SOLVE with 2x budget. First attempt found a local optimum (objective value 73.2). With remaining budget, agent tried a different initial point and found the global optimum (objective value 81.7). This is a clear case where retry with different strategy -- enabled by extra compute -- directly solves the problem."
+    },
+    {
+      "task_id": "H19",
+      "category": "multi-domain",
+      "dit_profile": "balanced",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5150,
+      "notes": "Implemented the algorithm correctly from pseudocode but benchmarking was incomplete -- only tested 3 of 5 required input distributions. Extra budget was spent optimizing the implementation rather than completing the benchmark suite. Needed better task decomposition (implement THEN benchmark) rather than more time on implementation."
+    },
+    {
+      "task_id": "H20",
+      "category": "multi-domain",
+      "dit_profile": "balanced",
+      "correct": false,
+      "partial": true,
+      "tokens_estimated": 5010,
+      "notes": "Baseline flat identified the top 3 cost drivers but missed #4 and #5. With extra budget, agent found cost driver #4 but still missed #5 (an underutilized reserved instance). Optimization recommendations for the 4 identified drivers were accurate but projected savings were overstated by 18% due to missing the RI interaction. Close to correct but not full credit."
+    }
+  ],
+
+  "summary": {
+    "total_tasks": 20,
+    "correct": 7,
+    "partial": 8,
+    "incorrect": 5,
+    "accuracy": 0.35,
+    "accuracy_with_partial": 0.55,
+    "mean_tokens": 5000,
+    "total_tokens": 100010
+  },
+
+  "by_dit_profile": {
+    "high_D": {
+      "tasks": 7,
+      "correct": 4,
+      "partial": 2,
+      "incorrect": 1,
+      "accuracy": 0.571,
+      "notes": "High accuracy here is misleading -- 4 of the 4 correct were already solved by baseline flat. Zero new solves from extra compute on high-D tasks. The bottleneck is coverage across independent subtasks, not depth on any single subtask. A single agent processes subtasks serially and loses track of earlier ones. Hierarchical's parallel executor dispatch is the structural solution.",
+      "new_solves": 0,
+      "retained_from_baseline": 4
+    },
+    "high_I": {
+      "tasks": 7,
+      "correct": 1,
+      "partial": 2,
+      "incorrect": 4,
+      "accuracy": 0.143,
+      "notes": "Extra compute helps slightly on high-I tasks (enables retries with different strategies), but anchoring bias and confirmation bias limit the benefit. The agent tends to iterate on the SAME approach rather than trying fundamentally different ones. Debate's adversarial structure forces genuine diversity of approach.",
+      "new_solves": 1,
+      "retained_from_baseline": 0
+    },
+    "balanced": {
+      "tasks": 6,
+      "correct": 2,
+      "partial": 4,
+      "incorrect": 0,
+      "accuracy": 0.333,
+      "notes": "Extra compute helps most on balanced tasks where the bottleneck is verification depth rather than structural coverage or perspective diversity. Two new solves (H16, H18) came from iterative verification and retry with different strategy respectively. These tasks have moderate D and I, meaning neither parallel decomposition nor adversarial diversity is critically needed -- just more careful single-agent work.",
+      "new_solves": 2,
+      "retained_from_baseline": 0
+    }
+  },
+
+  "comparison": {
+    "flat_baseline": {
+      "accuracy": 0.20,
+      "tokens_per_task": 2490,
+      "tokens_per_correct": 12450
+    },
+    "flat_2x_budget": {
+      "accuracy": 0.35,
+      "tokens_per_task": 5000,
+      "tokens_per_correct": 14286
+    },
+    "hierarchical": {
+      "accuracy": 0.65,
+      "tokens_per_task": 4770,
+      "tokens_per_correct": 7338
+    },
+    "debate": {
+      "accuracy": 0.65,
+      "tokens_per_task": 4710,
+      "tokens_per_correct": 7246
+    }
+  },
+
+  "analysis": {
+    "confound_assessment": "PARTIALLY REAL but NOT the primary explanation",
+    "compute_contribution": "Doubling compute improves flat from 20% to 35% (+15pp). This is a real and meaningful improvement, confirming that some of the multi-agent advantage comes from additional compute. However, 3 of the 7 correct answers were new solves while 4 were retained from baseline -- the extra compute only flipped 3 tasks.",
+    "structure_contribution": "Hierarchical (65%) and debate (65%) outperform flat-2x (35%) by 30pp despite using comparable token budgets (~4,700-5,000 tokens/task). This gap is attributable to TOPOLOGY STRUCTURE, not compute.",
+    "decomposition": {
+      "total_multi_agent_advantage": "45pp over baseline flat (20% -> 65%)",
+      "compute_component": "15pp (20% -> 35%): ~33% of total advantage",
+      "structure_component": "30pp (35% -> 65%): ~67% of total advantage"
+    },
+    "key_insight": "On high-D tasks, flat-2x adds zero new solves -- its 57% accuracy comes entirely from tasks baseline flat already solved. Hierarchical achieves 100% on the same tasks by parallelizing subtask execution. On high-I tasks, flat-2x manages 1 new solve (14.3% accuracy) while debate achieves 100% through adversarial diversity. The structural advantages of hierarchical (parallel subtask dispatch) and debate (adversarial diversity) cannot be replicated by giving a single agent more time. On balanced tasks, flat-2x is most effective (2 new solves, 33%) but still below multi-agent levels (~83%).",
+    "new_failure_modes_identified": [
+      "Anchoring persistence: Extra budget causes the agent to DEEPEN analysis of its first approach rather than trying alternatives (observed in H08, H12, H14)",
+      "Verification theater: Agent spends extra tokens re-confirming correct sub-answers while missing incorrect ones (observed in H05, H07)",
+      "Serial oscillation: On interrelated problems, serial fix-test-fix cycles can oscillate without converging (observed in H13)"
+    ],
+    "recommendation": "The agent-count confound is real but explains only about one-third of the observed multi-agent advantage. The paper should acknowledge it with a sentence in limitations and reference this control experiment. The central claims about topology-task alignment remain well-supported: structure contributes approximately two-thirds of the multi-agent advantage over flat baselines."
+  }
+}

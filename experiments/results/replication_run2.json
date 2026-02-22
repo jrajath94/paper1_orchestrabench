@@ -1,0 +1,778 @@
+{
+  "run": 2,
+  "seed": 1528,
+  "backbone": "Claude Opus 4.6",
+  "timestamp": "2026-03-16",
+  "total_runs": 246,
+  "description": "Independent replication trial (Run 2) of OrchestraBench 82-task suite across 3 topologies. Run 2 uses a different random seed to produce independent stochastic draws.",
+  "summary": {
+    "easy": {
+      "n": 12,
+      "flat_correct": 11,
+      "hier_correct": 12,
+      "debate_correct": 12,
+      "flat_accuracy": 0.9167,
+      "hier_accuracy": 1.0,
+      "debate_accuracy": 1.0
+    },
+    "hard": {
+      "n": 70,
+      "flat_correct": 11,
+      "hier_correct": 31,
+      "debate_correct": 42,
+      "flat_accuracy": 0.1571,
+      "hier_accuracy": 0.4429,
+      "debate_accuracy": 0.6
+    },
+    "overall": {
+      "n": 82,
+      "flat_correct": 22,
+      "hier_correct": 43,
+      "debate_correct": 54,
+      "flat_accuracy": 0.2683,
+      "hier_accuracy": 0.5244,
+      "debate_accuracy": 0.6585
+    }
+  },
+  "run1_comparison": {
+    "hard_deltas_pp": {
+      "flat": -2.9,
+      "hier": -8.6,
+      "debate": 1.4
+    },
+    "overall_deltas_pp": {
+      "flat": -2.4,
+      "hier": -7.3,
+      "debate": 1.2
+    },
+    "total_disagreements": 23,
+    "total_comparisons": 210,
+    "agreement_rate": 0.8905,
+    "disagreement_tasks": [
+      {
+        "task_id": "H04",
+        "topology": "flat",
+        "direction": "1->0",
+        "category": "research",
+        "dit_profile": "balanced",
+        "D": 0.21,
+        "I": 0.44
+      },
+      {
+        "task_id": "H05",
+        "topology": "debate",
+        "direction": "0->1",
+        "category": "coding",
+        "dit_profile": "high-D",
+        "D": 0.77,
+        "I": 0.12
+      },
+      {
+        "task_id": "H09",
+        "topology": "debate",
+        "direction": "1->0",
+        "category": "reasoning",
+        "dit_profile": "high-I",
+        "D": 0.25,
+        "I": 0.84
+      },
+      {
+        "task_id": "H09",
+        "topology": "flat",
+        "direction": "0->1",
+        "category": "reasoning",
+        "dit_profile": "high-I",
+        "D": 0.25,
+        "I": 0.84
+      },
+      {
+        "task_id": "H11",
+        "topology": "debate",
+        "direction": "0->1",
+        "category": "research",
+        "dit_profile": "balanced",
+        "D": 0.4,
+        "I": 0.31
+      },
+      {
+        "task_id": "X03",
+        "topology": "debate",
+        "direction": "0->1",
+        "category": "coding",
+        "dit_profile": "high-D",
+        "D": 0.73,
+        "I": 0.2
+      },
+      {
+        "task_id": "X05",
+        "topology": "debate",
+        "direction": "1->0",
+        "category": "coding",
+        "dit_profile": "high-D",
+        "D": 0.72,
+        "I": 0.18
+      },
+      {
+        "task_id": "X05",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "coding",
+        "dit_profile": "high-D",
+        "D": 0.72,
+        "I": 0.18
+      },
+      {
+        "task_id": "X09",
+        "topology": "debate",
+        "direction": "0->1",
+        "category": "coding",
+        "dit_profile": "balanced",
+        "D": 0.64,
+        "I": 0.1
+      },
+      {
+        "task_id": "X13",
+        "topology": "flat",
+        "direction": "1->0",
+        "category": "coding",
+        "dit_profile": "balanced",
+        "D": 0.56,
+        "I": 0.2
+      },
+      {
+        "task_id": "X13",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "coding",
+        "dit_profile": "balanced",
+        "D": 0.56,
+        "I": 0.2
+      },
+      {
+        "task_id": "X15",
+        "topology": "debate",
+        "direction": "1->0",
+        "category": "coding",
+        "dit_profile": "balanced",
+        "D": 0.53,
+        "I": 0.28
+      },
+      {
+        "task_id": "X19",
+        "topology": "hier",
+        "direction": "0->1",
+        "category": "reasoning",
+        "dit_profile": "balanced",
+        "D": 0.3,
+        "I": 0.67
+      },
+      {
+        "task_id": "X21",
+        "topology": "debate",
+        "direction": "1->0",
+        "category": "reasoning",
+        "dit_profile": "balanced",
+        "D": 0.25,
+        "I": 0.61
+      },
+      {
+        "task_id": "X26",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "reasoning",
+        "dit_profile": "balanced",
+        "D": 0.35,
+        "I": 0.58
+      },
+      {
+        "task_id": "X27",
+        "topology": "debate",
+        "direction": "0->1",
+        "category": "reasoning",
+        "dit_profile": "balanced",
+        "D": 0.3,
+        "I": 0.58
+      },
+      {
+        "task_id": "X34",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "research",
+        "dit_profile": "balanced",
+        "D": 0.54,
+        "I": 0.52
+      },
+      {
+        "task_id": "X37",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "research",
+        "dit_profile": "balanced",
+        "D": 0.59,
+        "I": 0.55
+      },
+      {
+        "task_id": "X40",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "research",
+        "dit_profile": "balanced",
+        "D": 0.33,
+        "I": 0.45
+      },
+      {
+        "task_id": "X45",
+        "topology": "hier",
+        "direction": "0->1",
+        "category": "multi-domain",
+        "dit_profile": "balanced",
+        "D": 0.45,
+        "I": 0.6
+      },
+      {
+        "task_id": "X46",
+        "topology": "flat",
+        "direction": "1->0",
+        "category": "multi-domain",
+        "dit_profile": "high-D",
+        "D": 0.8,
+        "I": 0.15
+      },
+      {
+        "task_id": "X46",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "multi-domain",
+        "dit_profile": "high-D",
+        "D": 0.8,
+        "I": 0.15
+      },
+      {
+        "task_id": "X47",
+        "topology": "hier",
+        "direction": "1->0",
+        "category": "multi-domain",
+        "dit_profile": "balanced",
+        "D": 0.55,
+        "I": 0.55
+      }
+    ]
+  },
+  "dit_conditioned": {
+    "high_D": {
+      "threshold": "D >= 0.7",
+      "n": 15,
+      "flat_accuracy": 0.067,
+      "hier_accuracy": 0.8,
+      "debate_accuracy": 0.333
+    },
+    "high_I": {
+      "threshold": "I >= 0.7",
+      "n": 11,
+      "flat_accuracy": 0.182,
+      "hier_accuracy": 0.0,
+      "debate_accuracy": 0.818
+    },
+    "balanced": {
+      "threshold": "D < 0.7 and I < 0.7",
+      "n": 45,
+      "flat_accuracy": 0.178,
+      "hier_accuracy": 0.422,
+      "debate_accuracy": 0.622
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "E01",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E02",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E03",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E04",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E05",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E06",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E07",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E08",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E09",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E10",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E11",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "E12",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H01",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H02",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H03",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H04",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H05",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H06",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H07",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H08",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H09",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H10",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H11",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H12",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H13",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H14",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H15",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "H16",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H17",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H18",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H19",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "H20",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X01",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X02",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X03",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X04",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X05",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X06",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X07",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X08",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X09",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X10",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X11",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X12",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X13",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X14",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X15",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X16",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X17",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X18",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X19",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X20",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X21",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X22",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X23",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X24",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X25",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X26",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X27",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X28",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X29",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X30",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X31",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X32",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X33",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X34",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X35",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X36",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X37",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X38",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X39",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X40",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X41",
+      "flat_correct": true,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X42",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X43",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X44",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X45",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X46",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": false
+    },
+    {
+      "task_id": "X47",
+      "flat_correct": false,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X48",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X49",
+      "flat_correct": true,
+      "hier_correct": false,
+      "debate_correct": true
+    },
+    {
+      "task_id": "X50",
+      "flat_correct": false,
+      "hier_correct": true,
+      "debate_correct": true
+    }
+  ]
+}

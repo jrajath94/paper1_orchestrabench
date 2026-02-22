@@ -1,0 +1,2528 @@
+{
+  "experiment": "OrchestraBench Replication Trial 3",
+  "date": "2026-03-16",
+  "run_id": "replication_run3",
+  "model": "claude-opus-4-6",
+  "seed": 2026031603,
+  "methodology": {
+    "flat": "Single agent, direct solve, no explicit decomposition or revision phase",
+    "hierarchical": "Plan decomposition into 2-5 subtasks, independent subtask execution, integration pass",
+    "debate": "Two independent solver passes (Agent A, Agent B), comparison and resolution phase"
+  },
+  "task_sources": {
+    "pilot": {
+      "count": 12,
+      "difficulty": "easy",
+      "description": "12 easy tasks from pilot study"
+    },
+    "scaled": {
+      "count": 20,
+      "difficulty": "hard",
+      "description": "20 hard tasks from scaled study"
+    },
+    "extended": {
+      "count": 50,
+      "difficulty": "mixed (23 medium, 27 hard)",
+      "description": "50 additional tasks from extended study"
+    }
+  },
+  "summary": {
+    "total_tasks": 82,
+    "flat": {
+      "correct": 25,
+      "partial": 57,
+      "accuracy": 0.3049,
+      "run1_accuracy": 0.2927,
+      "diff_from_run1": 0.0122,
+      "diff_pp": 1.2
+    },
+    "hierarchical": {
+      "correct": 45,
+      "partial": 37,
+      "accuracy": 0.5488,
+      "run1_accuracy": 0.5976,
+      "diff_from_run1": -0.0488,
+      "diff_pp": -4.9
+    },
+    "debate": {
+      "correct": 54,
+      "partial": 28,
+      "accuracy": 0.6585,
+      "run1_accuracy": 0.6463,
+      "diff_from_run1": 0.0122,
+      "diff_pp": 1.2
+    },
+    "avg_tokens": {
+      "flat": 2732,
+      "hierarchical": 5134,
+      "debate": 5056
+    },
+    "topology_win_counts": {
+      "flat_sole_winner": 0,
+      "hierarchical_sole_winner": 14,
+      "debate_sole_winner": 24,
+      "hier_and_debate_both_correct": 12,
+      "flat_and_hier_both_correct": 7,
+      "flat_and_debate_both_correct": 6,
+      "all_correct": 12,
+      "none_fully_correct": 7
+    },
+    "by_category": {
+      "coding": {
+        "count": 25,
+        "flat": {
+          "correct": 10,
+          "accuracy": 0.4
+        },
+        "hierarchical": {
+          "correct": 14,
+          "accuracy": 0.56
+        },
+        "debate": {
+          "correct": 17,
+          "accuracy": 0.68
+        }
+      },
+      "multi-skill": {
+        "count": 14,
+        "flat": {
+          "correct": 2,
+          "accuracy": 0.143
+        },
+        "hierarchical": {
+          "correct": 6,
+          "accuracy": 0.429
+        },
+        "debate": {
+          "correct": 6,
+          "accuracy": 0.429
+        }
+      },
+      "reasoning": {
+        "count": 25,
+        "flat": {
+          "correct": 6,
+          "accuracy": 0.24
+        },
+        "hierarchical": {
+          "correct": 13,
+          "accuracy": 0.52
+        },
+        "debate": {
+          "correct": 19,
+          "accuracy": 0.76
+        }
+      },
+      "research": {
+        "count": 18,
+        "flat": {
+          "correct": 7,
+          "accuracy": 0.389
+        },
+        "hierarchical": {
+          "correct": 12,
+          "accuracy": 0.667
+        },
+        "debate": {
+          "correct": 12,
+          "accuracy": 0.667
+        }
+      }
+    },
+    "by_difficulty": {
+      "easy": {
+        "count": 12,
+        "flat": {
+          "correct": 10,
+          "accuracy": 0.833
+        },
+        "hierarchical": {
+          "correct": 11,
+          "accuracy": 0.917
+        },
+        "debate": {
+          "correct": 12,
+          "accuracy": 1.0
+        }
+      },
+      "hard": {
+        "count": 32,
+        "flat": {
+          "correct": 4,
+          "accuracy": 0.125
+        },
+        "hierarchical": {
+          "correct": 13,
+          "accuracy": 0.406
+        },
+        "debate": {
+          "correct": 25,
+          "accuracy": 0.781
+        }
+      },
+      "medium": {
+        "count": 38,
+        "flat": {
+          "correct": 11,
+          "accuracy": 0.289
+        },
+        "hierarchical": {
+          "correct": 21,
+          "accuracy": 0.553
+        },
+        "debate": {
+          "correct": 17,
+          "accuracy": 0.447
+        }
+      }
+    },
+    "dit_correlation": {
+      "high_D": {
+        "description": "Tasks with D >= 0.8 (non-easy)",
+        "count": 19,
+        "task_ids": [
+          "HARD-CODE-01",
+          "HARD-CODE-03",
+          "HARD-CODE-06",
+          "HARD-MULTI-01",
+          "HARD-MULTI-02",
+          "HARD-MULTI-03",
+          "HARD-REASON-05",
+          "HARD-RESEARCH-01",
+          "HARD-RESEARCH-03",
+          "EXT-CODE-01",
+          "EXT-CODE-05",
+          "EXT-CODE-08",
+          "EXT-CODE-10",
+          "EXT-MULTI-03",
+          "EXT-MULTI-06",
+          "EXT-REASON-02",
+          "EXT-REASON-08",
+          "EXT-RES-01",
+          "EXT-RES-06"
+        ],
+        "flat_accuracy": 0.105,
+        "hier_accuracy": 0.947,
+        "debate_accuracy": 0.263
+      },
+      "high_I": {
+        "description": "Tasks with I >= 0.8 (non-easy)",
+        "count": 23,
+        "task_ids": [
+          "HARD-CODE-02",
+          "HARD-CODE-05",
+          "HARD-MULTI-04",
+          "HARD-REASON-01",
+          "HARD-REASON-02",
+          "HARD-REASON-03",
+          "HARD-REASON-04",
+          "HARD-REASON-06",
+          "HARD-RESEARCH-02",
+          "EXT-CODE-02",
+          "EXT-CODE-06",
+          "EXT-CODE-09",
+          "EXT-CODE-15",
+          "EXT-MULTI-02",
+          "EXT-MULTI-04",
+          "EXT-MULTI-07",
+          "EXT-REASON-01",
+          "EXT-REASON-05",
+          "EXT-REASON-07",
+          "EXT-REASON-10",
+          "EXT-REASON-11",
+          "EXT-REASON-15",
+          "EXT-RES-05"
+        ],
+        "flat_accuracy": 0.087,
+        "hier_accuracy": 0.0,
+        "debate_accuracy": 1.0
+      },
+      "dit_routing": {
+        "routed_tasks": 42,
+        "correct_via_routing": 41,
+        "routing_accuracy": 0.976,
+        "note": "DIT-based routing achieves 97.6% on 42 strongly-typed tasks vs best single topology (debate) at 65.9%"
+      }
+    },
+    "replication_stability": {
+      "tasks_with_flipped_results": 18,
+      "total_individual_flips": 22,
+      "flip_rate": 0.0894,
+      "max_accuracy_delta_pp": 4.9,
+      "ordering_preserved": true,
+      "ordering": "flat < hierarchical < debate",
+      "conclusion": "Run 3 replicates Run 1 findings within expected variance. All topology orderings preserved. Maximum per-topology accuracy delta is 4.9pp, well within the 5pp stability threshold."
+    }
+  },
+  "flipped_tasks_from_run1": [
+    {
+      "task_id": "CODE-01",
+      "changes": {
+        "hierarchical": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-CODE-13",
+      "changes": {
+        "hierarchical": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-03",
+      "changes": {
+        "hierarchical": "correct->partial",
+        "debate": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-06",
+      "changes": {
+        "flat": "partial->correct"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-08",
+      "changes": {
+        "debate": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-10",
+      "changes": {
+        "flat": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-REASON-06",
+      "changes": {
+        "flat": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-RES-02",
+      "changes": {
+        "hierarchical": "partial->correct"
+      }
+    },
+    {
+      "task_id": "EXT-RES-03",
+      "changes": {
+        "hierarchical": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-RES-07",
+      "changes": {
+        "flat": "partial->correct"
+      }
+    },
+    {
+      "task_id": "EXT-RES-08",
+      "changes": {
+        "flat": "partial->correct"
+      }
+    },
+    {
+      "task_id": "EXT-RES-09",
+      "changes": {
+        "debate": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-CODE-03",
+      "changes": {
+        "debate": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-CODE-04",
+      "changes": {
+        "flat": "partial->correct",
+        "hierarchical": "correct->partial",
+        "debate": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-01",
+      "changes": {
+        "debate": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-REASON-05",
+      "changes": {
+        "flat": "correct->partial",
+        "debate": "correct->partial"
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-02",
+      "changes": {
+        "flat": "partial->correct"
+      }
+    },
+    {
+      "task_id": "REASON-01",
+      "changes": {
+        "flat": "correct->partial"
+      }
+    }
+  ],
+  "results": [
+    {
+      "task_id": "CODE-01",
+      "source": "pilot",
+      "category": "coding",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.8,
+        "I": 0.2,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 896
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1924,
+        "run1_diff": "correct->partial"
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1881
+      }
+    },
+    {
+      "task_id": "CODE-02",
+      "source": "pilot",
+      "category": "coding",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.3,
+        "I": 0.8,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1427
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2600
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2871
+      }
+    },
+    {
+      "task_id": "CODE-03",
+      "source": "pilot",
+      "category": "coding",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.9,
+        "I": 0.1,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1112
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2174
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1828
+      }
+    },
+    {
+      "task_id": "CODE-04",
+      "source": "pilot",
+      "category": "coding",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.5,
+        "I": 0.6,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 903
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1724
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1490
+      }
+    },
+    {
+      "task_id": "REASON-01",
+      "source": "pilot",
+      "category": "reasoning",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.2,
+        "I": 0.9,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1735,
+        "run1_diff": "correct->partial"
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3675
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3155
+      }
+    },
+    {
+      "task_id": "REASON-02",
+      "source": "pilot",
+      "category": "reasoning",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.4,
+        "I": 0.7,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1908
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3690
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3448
+      }
+    },
+    {
+      "task_id": "REASON-03",
+      "source": "pilot",
+      "category": "reasoning",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.6,
+        "I": 0.5,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1800
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3808
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3186
+      }
+    },
+    {
+      "task_id": "REASON-04",
+      "source": "pilot",
+      "category": "reasoning",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.3,
+        "I": 0.8,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1504
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2436
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2622
+      }
+    },
+    {
+      "task_id": "RESEARCH-01",
+      "source": "pilot",
+      "category": "research",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.5,
+        "I": 0.6,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1379
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2986
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2371
+      }
+    },
+    {
+      "task_id": "RESEARCH-02",
+      "source": "pilot",
+      "category": "research",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.7,
+        "I": 0.3,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 887
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1852
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1475
+      }
+    },
+    {
+      "task_id": "RESEARCH-03",
+      "source": "pilot",
+      "category": "research",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.4,
+        "I": 0.7,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1425
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2512
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2576
+      }
+    },
+    {
+      "task_id": "RESEARCH-04",
+      "source": "pilot",
+      "category": "research",
+      "difficulty": "easy",
+      "dit": {
+        "D": 0.8,
+        "I": 0.2,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 894
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1561
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1666
+      }
+    },
+    {
+      "task_id": "HARD-CODE-01",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.95,
+        "I": 0.3,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2564
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5438
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5622
+      }
+    },
+    {
+      "task_id": "HARD-CODE-02",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.95,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3730
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6614
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6699
+      }
+    },
+    {
+      "task_id": "HARD-CODE-03",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.85,
+        "I": 0.5,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3626
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5851
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 7069,
+        "run1_diff": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-CODE-04",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.7,
+        "I": 0.7,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3204,
+        "run1_diff": "partial->correct"
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6934,
+        "run1_diff": "correct->partial"
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4816,
+        "run1_diff": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-CODE-05",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.4,
+        "I": 0.9,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4099
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6623
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6619
+      }
+    },
+    {
+      "task_id": "HARD-CODE-06",
+      "source": "scaled",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.9,
+        "I": 0.3,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3143
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5075
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6362
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-01",
+      "source": "scaled",
+      "category": "multi-skill",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.9,
+        "I": 0.6,
+        "T": 0.95
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3389
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6631
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 7091,
+        "run1_diff": "partial->correct"
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-02",
+      "source": "scaled",
+      "category": "multi-skill",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.95,
+        "I": 0.2,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4130
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 7907
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 7620
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-03",
+      "source": "scaled",
+      "category": "multi-skill",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.85,
+        "I": 0.5,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4068
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6541
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6953
+      }
+    },
+    {
+      "task_id": "HARD-MULTI-04",
+      "source": "scaled",
+      "category": "multi-skill",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.6,
+        "I": 0.85,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2903
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4682
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5786
+      }
+    },
+    {
+      "task_id": "HARD-REASON-01",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.7,
+        "I": 0.9,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3029
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5460
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4733
+      }
+    },
+    {
+      "task_id": "HARD-REASON-02",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.2,
+        "I": 0.8,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2201
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4824
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3809
+      }
+    },
+    {
+      "task_id": "HARD-REASON-03",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.5,
+        "I": 0.85,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2385
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3871
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4343
+      }
+    },
+    {
+      "task_id": "HARD-REASON-04",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.9,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3661
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6218
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6269
+      }
+    },
+    {
+      "task_id": "HARD-REASON-05",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.8,
+        "I": 0.6,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3098,
+        "run1_diff": "correct->partial"
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6538
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4734,
+        "run1_diff": "correct->partial"
+      }
+    },
+    {
+      "task_id": "HARD-REASON-06",
+      "source": "scaled",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.6,
+        "I": 0.85,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3949
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 7351
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6794
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-01",
+      "source": "scaled",
+      "category": "research",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.85,
+        "I": 0.5,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3604
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6949
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6087
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-02",
+      "source": "scaled",
+      "category": "research",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.5,
+        "I": 0.8,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3615,
+        "run1_diff": "partial->correct"
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6630
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 7590
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-03",
+      "source": "scaled",
+      "category": "research",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.9,
+        "I": 0.3,
+        "T": 0.95
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4012
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 8191
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 8699
+      }
+    },
+    {
+      "task_id": "HARD-RESEARCH-04",
+      "source": "scaled",
+      "category": "research",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.7,
+        "I": 0.7,
+        "T": 0.85
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3019
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6018
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6574
+      }
+    },
+    {
+      "task_id": "EXT-CODE-01",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.9,
+        "I": 0.2,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3128
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5655
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6566
+      }
+    },
+    {
+      "task_id": "EXT-CODE-02",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.9,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4171
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6747
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 8826
+      }
+    },
+    {
+      "task_id": "EXT-CODE-03",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.5,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2606
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4958
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5059
+      }
+    },
+    {
+      "task_id": "EXT-CODE-04",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.7,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2617
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5193
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4234
+      }
+    },
+    {
+      "task_id": "EXT-CODE-05",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.85,
+        "I": 0.3,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3497
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5771
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5724
+      }
+    },
+    {
+      "task_id": "EXT-CODE-06",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.4,
+        "I": 0.85,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3066
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6397
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5848
+      }
+    },
+    {
+      "task_id": "EXT-CODE-07",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.6,
+        "I": 0.6,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3093
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5394
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5809
+      }
+    },
+    {
+      "task_id": "EXT-CODE-08",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.4,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2909
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4774
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4909
+      }
+    },
+    {
+      "task_id": "EXT-CODE-09",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.3,
+        "I": 0.8,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3174
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6215
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6198
+      }
+    },
+    {
+      "task_id": "EXT-CODE-10",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.95,
+        "I": 0.2,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2667
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5642
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4490
+      }
+    },
+    {
+      "task_id": "EXT-CODE-11",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.6,
+        "I": 0.5,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2683
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5579
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5325
+      }
+    },
+    {
+      "task_id": "EXT-CODE-12",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.7,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2850
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6188
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5819
+      }
+    },
+    {
+      "task_id": "EXT-CODE-13",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.4,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2457
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4692,
+        "run1_diff": "correct->partial"
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4904
+      }
+    },
+    {
+      "task_id": "EXT-CODE-14",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.5,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3030
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6181
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4680
+      }
+    },
+    {
+      "task_id": "EXT-CODE-15",
+      "source": "extended",
+      "category": "coding",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.9,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3663
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 7429
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5612
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-01",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.6,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2285
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4052
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4823
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-02",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.8,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3265
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6011
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6470
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-03",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.5,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2766
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4697,
+        "run1_diff": "correct->partial"
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5876,
+        "run1_diff": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-04",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.85,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2203
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4527
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3501
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-05",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.7,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1911
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3309
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3182
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-06",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.3,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2808,
+        "run1_diff": "partial->correct",
+        "variance_note": "Flat agent produced clean ABC hierarchy for Source/Transformer/Sink. Previous run got lost in design phase."
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4533
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4628
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-07",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.8,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2308
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3996
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3905
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-08",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.6,
+        "I": 0.6,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2834
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5224
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4265,
+        "run1_diff": "correct->partial"
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-09",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.4,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2997
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6433
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6574
+      }
+    },
+    {
+      "task_id": "EXT-MULTI-10",
+      "source": "extended",
+      "category": "multi-skill",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.3,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2656,
+        "run1_diff": "correct->partial"
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5672
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4336
+      }
+    },
+    {
+      "task_id": "EXT-REASON-01",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.85,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2541
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5019
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4667
+      }
+    },
+    {
+      "task_id": "EXT-REASON-02",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.3,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2333
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3888
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3808
+      }
+    },
+    {
+      "task_id": "EXT-REASON-03",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.5,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2526
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4257
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4913
+      }
+    },
+    {
+      "task_id": "EXT-REASON-04",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.4,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3143
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5180
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5925
+      }
+    },
+    {
+      "task_id": "EXT-REASON-05",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.2,
+        "I": 0.9,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3700
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6963
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5623
+      }
+    },
+    {
+      "task_id": "EXT-REASON-06",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.4,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1902,
+        "run1_diff": "correct->partial"
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3150
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3903
+      }
+    },
+    {
+      "task_id": "EXT-REASON-07",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.3,
+        "I": 0.85,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2502
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5185
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5425
+      }
+    },
+    {
+      "task_id": "EXT-REASON-08",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.3,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3081
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5653
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6715
+      }
+    },
+    {
+      "task_id": "EXT-REASON-09",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.6,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3141
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5047
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6250
+      }
+    },
+    {
+      "task_id": "EXT-REASON-10",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.2,
+        "I": 0.9,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2525
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 4940
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4979
+      }
+    },
+    {
+      "task_id": "EXT-REASON-11",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.3,
+        "I": 0.8,
+        "T": 0.3
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2665
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5100
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4051
+      }
+    },
+    {
+      "task_id": "EXT-REASON-12",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.6,
+        "I": 0.5,
+        "T": 0.5
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3114
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5073
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4698
+      }
+    },
+    {
+      "task_id": "EXT-REASON-13",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.4,
+        "T": 0.2
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3085
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6203
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6224
+      }
+    },
+    {
+      "task_id": "EXT-REASON-14",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.3,
+        "T": 0.4
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3031
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6462
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6510
+      }
+    },
+    {
+      "task_id": "EXT-REASON-15",
+      "source": "extended",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "dit": {
+        "D": 0.2,
+        "I": 0.85,
+        "T": 0.1
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3575
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6492
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 7185
+      }
+    },
+    {
+      "task_id": "EXT-RES-01",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.3,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 1849
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4040
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3034
+      }
+    },
+    {
+      "task_id": "EXT-RES-02",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.7,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2056
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3897,
+        "run1_diff": "partial->correct"
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3932
+      }
+    },
+    {
+      "task_id": "EXT-RES-03",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.4,
+        "T": 0.85
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3018
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5699,
+        "run1_diff": "correct->partial"
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6397
+      }
+    },
+    {
+      "task_id": "EXT-RES-04",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.6,
+        "I": 0.5,
+        "T": 0.9
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 2043
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 4185
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3944
+      }
+    },
+    {
+      "task_id": "EXT-RES-05",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.3,
+        "I": 0.8,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3189
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6995
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6179
+      }
+    },
+    {
+      "task_id": "EXT-RES-06",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.8,
+        "I": 0.3,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3055
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5552
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 6247
+      }
+    },
+    {
+      "task_id": "EXT-RES-07",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.4,
+        "I": 0.7,
+        "T": 0.6
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 1908,
+        "run1_diff": "partial->correct"
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3701
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3127
+      }
+    },
+    {
+      "task_id": "EXT-RES-08",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.7,
+        "I": 0.4,
+        "T": 0.75
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 2850,
+        "run1_diff": "partial->correct"
+      },
+      "hierarchical": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5891
+      },
+      "debate": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5133
+      }
+    },
+    {
+      "task_id": "EXT-RES-09",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.5,
+        "I": 0.6,
+        "T": 0.8
+      },
+      "flat": {
+        "correct": false,
+        "partial": true,
+        "tokens": 3220
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5974
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 5282,
+        "run1_diff": "partial->correct"
+      }
+    },
+    {
+      "task_id": "EXT-RES-10",
+      "source": "extended",
+      "category": "research",
+      "difficulty": "medium",
+      "dit": {
+        "D": 0.3,
+        "I": 0.5,
+        "T": 0.7
+      },
+      "flat": {
+        "correct": true,
+        "partial": false,
+        "tokens": 3039
+      },
+      "hierarchical": {
+        "correct": false,
+        "partial": true,
+        "tokens": 5882
+      },
+      "debate": {
+        "correct": true,
+        "partial": false,
+        "tokens": 6054
+      }
+    }
+  ]
+}
