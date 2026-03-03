@@ -1,0 +1,59 @@
+\section{Methods}
+
+Every orchestration topology carries implicit assumptions about task structure. This section formalizes both sides of the alignment framework: the task-structure dimensions that characterize what a task demands, and the topology priors that characterize what each orchestration pattern assumes.
+
+\subsection{Task-Structure Dimensions}\label{task-structure-dimensions}
+
+We characterize tasks along three dimensions that capture the structural demands an orchestration topology must satisfy. Each is defined operationally so that annotators can assign scores from ground-truth trajectories.
+
+\textbf{Decomposability (D).} Given a task $\tau$ with a reference solution of $n$ steps, let $k$ denote the number of steps whose inputs depend only on the original task specification. Then $D = k / n \in [0, 1]$. A coding task requiring bug localization across three independent modules followed by a unified patch exhibits $D \approx 0.6$: the localization steps are independent but patch synthesis depends on all of them.
+
+\textbf{Iterativeness (I).} Let $r$ denote the number of steps that revise, override, or extend the output of a previously completed step. Then $I = r / n \in [0, 1]$. Reasoning tasks involving multi-hop logic score $I \approx 0.7$ because intermediate conclusions must be revised as new evidence accumulates across reasoning steps.
+
+\textbf{Tool Diversity (T).} $T \in \{1, 2, \ldots, n\}$ counts the number of distinct tool categories the task requires, drawn from six canonical categories: code execution, web navigation, file I/O, search/retrieval, mathematical computation, and API invocation. A research task requiring web search, document reading, data extraction, and cross-source verification scores $T = 4$. We normalize $T$ to $[0, 1]$ by dividing by the maximum observed value across our task corpus, producing a unit cube for geometric computation.
+
+\subsection{Topology Taxonomy}\label{topology-taxonomy}
+
+Each orchestration topology encodes a structural prior: an implicit assumption about which region of D-I-T space the tasks it will face occupy. We characterize five topologies below. The first three are evaluated experimentally; the remaining two are positioned in D-I-T space for completeness but not yet evaluated.
+
+\textbf{Flat conversation} organizes agents as equal participants in a multi-turn dialogue loop with shared tool access \cite{wu_2023}. No agent has authority over another; coordination emerges from conversational context. Prior: $(D_{\text{prior}}, I_{\text{prior}}, T_{\text{prior}}) = (0.2, 0.8, 0.3)$. It handles iterative refinement naturally but struggles when tasks decompose into parallel tracks.
+
+When tasks decompose into parallel tracks, flat conversation breaks down --- but hierarchical SOP thrives. \textbf{Hierarchical SOP} assigns a planner agent to decompose tasks into subtask specifications, each executed by a specialist, with verification gates between stages \cite{hong_2023}. Prior: $(0.8, 0.2, 0.5)$. Its failure mode is the mirror image of flat's strength: tasks requiring iterative revision of earlier outputs resist clean decomposition, and the planner's subtask boundaries sever the dependencies that matter most.
+
+\textbf{Debate} structures agents as adversarial reviewers who propose, critique, and refine solutions through multiple rounds of structured argumentation. Agents specialize in generating and stress-testing claims, surfacing errors that a single perspective would miss. Prior: $(0.3, 0.7, 0.3)$.
+
+The framework extends to topologies we have not yet evaluated. \textbf{Role-playing} assigns distinct personas who collaborate through structured dialogue in fixed-turn exchanges \cite{li_2023}. Prior: $(0.5, 0.5, 0.3)$. \textbf{RL-orchestrated} topologies use a learned policy to dynamically assign agents based on runtime signals \cite{evolving_2025}. Because the policy adapts, RL topologies make weaker a priori assumptions, occupying a broad central region at $(0.5, 0.5, 0.5)$ with larger uncertainty bounds. Both are positioned in D-I-T space to generate testable predictions for future work.
+
+\subsection{The Alignment Hypothesis Formalized}\label{the-alignment-hypothesis-formalized}
+
+The topology-task alignment hypothesis states that for a given task $\tau$ with coordinates $(D_\tau, I_\tau, T_\tau)$, the topology whose structural prior $(D_p, I_p, T_p)$ minimizes the alignment distance
+
+$$\delta(\tau, p) = \sqrt{w_D(D_\tau - D_p)^2 + w_I(I_\tau - I_p)^2 + w_T(T_\tau - T_p)^2}$$
+
+will achieve the highest performance on $\tau$ among the evaluated topologies. Here $w_D, w_I, w_T \geq 0$ are dimension weights satisfying $w_D + w_I + w_T = 1$, estimated from a held-out validation set. The hypothesis is falsifiable: if topology effectiveness is unrelated to task structure, alignment distance will show no correlation with performance ranking.
+
+Two predictions follow. First, no single topology should dominate across all task categories, because the three categories occupy different D-I-T regions. Second, tasks with extreme D-I-T profiles should show the largest performance gaps between best-matched and worst-matched topologies.
+
+\subsection{OrchestraBench: Topology Implementations}\label{orchestrabench-topology-implementations}
+
+OrchestraBench implements the three evaluated topologies (flat, hierarchical, debate) as controlled wrappers around a shared infrastructure stack. Each wrapper receives the same inputs (task specification, LLM backbone access, tool suite, token budget) and differs only in how it organizes agent interactions.
+
+The shared infrastructure has four components. The \textbf{LLM backbone} provides all generation through a single endpoint (Claude Opus 4.6, with a secondary check on Claude Sonnet 4.6) with identical temperature and maximum token settings. The \textbf{tool suite} exposes all canonical tool categories through a unified interface (code interpreter, terminal, web browser, file system). The \textbf{context budget} uses the full 1M token context window, enforced at the wrapper level; topologies that spend tokens on inter-agent coordination reduce the budget available for task-relevant generation. The \textbf{evaluation harness} records all interactions, tool calls, intermediate outputs, and final answers in a standardized trace format.
+
+Each wrapper handles agent instantiation, message routing, and termination. The wrappers are 200--600 lines of Python, kept deliberately lightweight so implementation quality does not confound the topology comparison.
+
+\subsection{Task Sampling and Annotation}\label{task-sampling-and-annotation}
+
+We evaluate on 82 custom tasks (12 easy, 70 hard) across three categories chosen for structural diversity. Tasks are hand-constructed to cover the full D-I-T space rather than sampled from existing benchmarks, giving us control over structural diversity at the cost of external validity (see Section~\ref{sec:results-limitations}).
+
+\textbf{Coding} (26 tasks): implementation, debugging, and refactoring tasks. These cluster at high $D$ (mean 0.63), moderate $T$ (mean 2.3), and low $I$ (mean 0.27), because bug localization, patching, and testing are separable stages.
+
+\textbf{Research} (30 tasks, including multi-domain tasks requiring cross-category tool use): information synthesis, cross-source verification, and tasks requiring both research and coding or reasoning components. These cluster at moderate-to-high $T$ (mean 3.7), moderate $D$ (mean 0.48), and moderate $I$ (mean 0.39) due to diverse tool requirements.
+
+\textbf{Reasoning} (26 tasks): logic, game theory, and constraint satisfaction. Reasoning tasks proved hardest to annotate --- multi-hop logic required judgment calls about where revision begins and sequential extension ends. They cluster at high $I$ (mean 0.59), low $D$ (mean 0.24), and low $T$ (mean 1.4).
+
+The authors independently score each task's $D$, $I$, and $T$ from reference solution trajectories. Inter-annotator agreement (Cohen's $\kappa$): 0.83 for D, 0.79 for I, 0.91 for T. Disagreements exceeding 0.2 on any dimension are resolved through discussion to consensus.
+
+\subsection{Evaluation Protocol}\label{evaluation-protocol}
+
+Each of the 82 tasks runs under all three evaluated topologies on the primary backbone (Claude Opus 4.6) with three different random seeds, producing 738 primary runs (82 $\times$ 3 $\times$ 3). A secondary backbone check runs all 12 easy tasks across all three topologies on Claude Sonnet 4.6 (36 runs). An agent-count control experiment gives a single flat agent 2$\times$ the token budget on 20 hard tasks (20 runs). Grand total: 794 runs. We measure three metrics: \textbf{task success rate} (binary correct/incorrect), \textbf{token efficiency} (total tokens consumed), and \textbf{wall-clock latency}. We report mean accuracy with 95\% confidence intervals from the three replicates. Alignment prediction accuracy is evaluated via a DIT routing classifier that selects the best topology based on alignment distance (Section~\ref{the-alignment-hypothesis-formalized}).

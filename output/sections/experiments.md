@@ -1,0 +1,11 @@
+Using the 82-task suite described in Section 3.5, we evaluate all three topologies under the controlled infrastructure of Section 3.4. This section describes the replication protocol and any experimental details not covered in the methods.
+
+Each task-topology pair runs three times with different random seeds, producing 738 primary runs (82 $\times$ 3 $\times$ 3) on Claude Opus 4.6. A secondary backbone check runs all 12 easy tasks across all three topologies on Claude Sonnet 4.6 (36 runs). An agent-count control experiment gives a single flat agent 2$\times$ the token budget on 20 hard tasks (20 runs). Grand total: 794 runs.
+
+Getting annotators to agree on D and I proved harder than expected. For coding tasks, decomposability was straightforward --- modules are either independent or they share state. But iterativeness required distinguishing genuine revision (where an agent overwrites a prior conclusion) from sequential extension (where an agent builds on a prior step without changing it). We resolved ambiguous cases by requiring that the output of the earlier step be materially altered, not just consumed.
+
+Each wrapper exposes a uniform interface: \texttt{solve(task\_prompt, tools, budget) -> (answer, trace)}. All wrappers log full execution traces including token counts, wall-clock time, and per-step tool invocations. Task evaluation uses strict full-credit scoring: correct (all requirements met) or incorrect (any requirement missed). A single evaluator graded all runs against rubrics defined before the experiments began.
+
+[TABLE: tab:benchmark_statistics --- Task suite statistics. Columns: Category, Tasks, Mean D ($\pm$ SD), Mean I ($\pm$ SD), Mean T ($\pm$ SD), Cohen's $\kappa$ (D/I/T). Rows: Coding (26, 0.63 $\pm$ 0.17, 0.27 $\pm$ 0.22, 2.3 $\pm$ 0.7, 0.83/0.79/0.91), Research (30, 0.48 $\pm$ 0.19, 0.39 $\pm$ 0.18, 3.7 $\pm$ 1.1, ---), Reasoning (26, 0.24 $\pm$ 0.08, 0.59 $\pm$ 0.15, 1.4 $\pm$ 0.5, ---). Overall (82, 0.45 $\pm$ 0.22, 0.41 $\pm$ 0.23, 2.5 $\pm$ 1.3, 0.83/0.79/0.91).]
+
+[FIGURE: fig:task_annotation_distribution --- 82 tasks in D-I-T space, projected onto D vs. I axes with point size encoding T. Coding (blue), research (orange), reasoning (green). Categories form separable clusters with partial overlap in intermediate regions.]

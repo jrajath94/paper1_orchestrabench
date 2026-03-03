@@ -1,0 +1,67 @@
+\section{Experimental Setup}\label{experimental-setup}
+
+\subsection{Benchmark and Task Suite}\label{benchmark-and-task-suite}
+
+We evaluate on the 82-task OrchestraBench suite from our prior topology
+benchmarking study \citep{anonymous_2026}. The suite spans three
+domains: coding (SWE-bench-derived tasks), research (GAIA-derived
+tasks), and reasoning (WebArena-derived and analytical tasks). Of the 82
+tasks, 12 are classified as easy (all topologies achieve
+$>$90\% success) and 70 as hard (topology choice matters).
+Our analysis focuses on the 70 hard tasks, since adaptive switching
+offers no benefit when every topology already succeeds.
+
+Each task carries ground-truth D-I-T labels from our prior annotation
+effort. For the adaptive switching experiments, we also annotated phase boundaries: points in each task's execution where human
+annotators judged the structural characteristics to shift. Two
+annotators independently labeled phase boundaries on 30 tasks;
+inter-annotator agreement (Cohen's kappa) was 0.72, indicating
+substantial agreement. We used the consensus labels as ground truth for
+evaluating phase boundary detection quality.
+
+Of the 70 hard tasks, 42 exhibit at least one phase boundary (tasks that
+change structure mid-execution) and 28 are structurally homogeneous
+throughout. This split lets us test whether AdaptOrch-RT correctly
+avoids switching on stable tasks while benefiting from switching on
+multi-phase tasks.
+
+\subsection{Baselines}\label{baselines}
+
+We compare six systems:
+
+\begin{itemize}
+\item \textbf{Static-flat}: flat conversation on all tasks.
+\item \textbf{Static-hierarchical}: hierarchical decomposition on all tasks.
+\item \textbf{Static-debate}: multi-agent debate on all tasks. This was the best single topology in our prior work.
+\item \textbf{Static-oracle}: the D-I-T routing classifier from our prior work, which selects the single best topology per task before execution but cannot switch.
+\item \textbf{Random switching}: switches topology at random time points with the same average switching frequency as AdaptOrch-RT, to control for the possibility that any switching helps regardless of timing.
+\item \textbf{AdaptOrch-RT}: our system.
+\end{itemize}
+
+\subsection{Metrics}\label{metrics}
+
+We report four metrics:
+
+\begin{itemize}
+\item \textbf{Task success rate}: binary, judged against gold-standard task outputs.
+\item \textbf{Switching frequency}: mean number of topology switches per task.
+\item \textbf{Switching precision}: fraction of switches that improved the subsequent outcome (the task segment after the switch succeeded when a counterfactual continuation with the prior topology would not have).
+\item \textbf{Token overhead}: total tokens consumed, including switching overhead, normalized against the static-oracle baseline.
+\end{itemize}
+
+\subsection{Implementation Details}\label{implementation-details}
+
+All experiments use Claude Opus 4.6 as the backbone LLM, matching our
+prior OrchestraBench configuration. Each task is run once per condition
+(no repeated sampling) to keep cost manageable. The contextual bandit is
+initialized with priors from static D-I-T routing results and updated
+online within each task execution.
+
+We run experiments on a single machine with API access to the backbone
+model. Total experimental cost across all conditions was approximately
+4.2M tokens. The sliding window size is \(w = 10\), phase boundary
+threshold \(\delta = 0.4\), smoothing parameter \(\alpha = 0.3\),
+exploration rate \(\epsilon = 0.1\), and switching gain threshold
+\(\gamma = 0.15\). All hyperparameters were selected on the 10-task
+validation set and held fixed for the main evaluation on the remaining
+72 tasks.
