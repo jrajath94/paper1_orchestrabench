@@ -1,0 +1,162 @@
+\section{Task Descriptions}\label{app:task-descriptions}
+
+The 82-task suite spans three categories: coding (implementation, debugging, refactoring), reasoning (logic, game theory, constraint satisfaction), and research (information synthesis, cross-source verification). Each task is annotated with decomposability (D), iterativeness (I), and tool diversity (T) scores. The 12 pilot tasks are easy; the 70 scaled tasks are hard. Full task prompts and expected answers are released as supplementary JSON files.
+
+\subsection{Pilot Study Tasks (12 tasks, medium difficulty)}\label{app:pilot-tasks}
+
+\begin{table}[ht]
+\centering
+\caption{Pilot study task specifications with D-I-T annotations.}
+\label{tab:pilot_tasks}
+\small
+\begin{tabular}{llcccl}
+\toprule
+Task ID & Category & D & I & T & Prompt (abbreviated) \\
+\midrule
+CODE-01 & Coding & 0.80 & 0.20 & 0.30 & Heap-based merge for sorted lists \\
+CODE-02 & Coding & 0.30 & 0.80 & 0.20 & Debug palindromic-substring function \\
+CODE-03 & Coding & 0.90 & 0.10 & 0.60 & Key-value store with TTL expiration \\
+CODE-04 & Coding & 0.50 & 0.60 & 0.40 & Flatten nested JSON to dot-notation \\
+REASON-01 & Reasoning & 0.20 & 0.90 & 0.10 & Fox-chicken-grain river crossing \\
+REASON-02 & Reasoning & 0.40 & 0.70 & 0.20 & Three switches, three bulbs puzzle \\
+REASON-03 & Reasoning & 0.60 & 0.50 & 0.30 & Twelve coins counterfeit problem \\
+REASON-04 & Reasoning & 0.30 & 0.80 & 0.10 & Five pirates gold coin division \\
+RESEARCH-01 & Research & 0.50 & 0.60 & 0.80 & Top 3 open-source LLM agent frameworks \\
+RESEARCH-02 & Research & 0.70 & 0.30 & 0.90 & SWE-bench Verified SOTA report \\
+RESEARCH-03 & Research & 0.40 & 0.70 & 0.70 & NeurIPS vs ICML 2025 comparison \\
+RESEARCH-04 & Research & 0.80 & 0.20 & 0.80 & Multi-agent orchestration papers survey \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Full Results}\label{app:full-results}
+
+\subsection{Pilot Study Results}\label{app:pilot-results}
+
+\begin{table}[ht]
+\centering
+\caption{Pilot study results (12 easy tasks). All runs use Claude Opus 4.6.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Category (n) & Flat & Hierarchical & Debate \\
+\midrule
+Coding (4) & 100\% & 100\% & 100\% \\
+Reasoning (4) & 100\% & 100\% & 100\% \\
+Research (4) & 75\% & 100\% & 100\% \\
+\midrule
+\textbf{Overall (12)} & \textbf{91.7\%} & \textbf{100\%} & \textbf{100\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Scaled Study Results}\label{app:scaled-results}
+
+\begin{table}[ht]
+\centering
+\caption{Scaled study results (70 hard tasks). All runs use Claude Opus 4.6.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Category (n) & Flat & Hierarchical & Debate \\
+\midrule
+Coding (22) & 9.1\% & 59.1\% & 45.5\% \\
+Reasoning (22) & 18.2\% & 36.4\% & 63.6\% \\
+Research (14) & 14.3\% & 57.1\% & 71.4\% \\
+Multi-domain (12) & 33.3\% & 66.7\% & 58.3\% \\
+\midrule
+\textbf{Overall (70)} & \textbf{18.6\%} & \textbf{52.9\%} & \textbf{58.6\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Combined Results}\label{app:combined-results}
+
+\begin{table}[ht]
+\centering
+\caption{Combined results (82 tasks). All runs use Claude Opus 4.6.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Split (n) & Flat & Hierarchical & Debate \\
+\midrule
+Easy (12) & 91.7\% & 100\% & 100\% \\
+Hard (70) & 18.6\% & 52.9\% & 58.6\% \\
+\midrule
+\textbf{Overall (82)} & \textbf{28.9\%} & \textbf{55.7\%} & \textbf{65.4\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Secondary backbone check: Claude Sonnet 4.6 on 12 easy tasks (36 runs).}
+\small
+\begin{tabular}{lccc}
+\toprule
+Category (n) & Flat & Hierarchical & Debate \\
+\midrule
+Coding (4) & 75\% & 75\% & 75\% \\
+Reasoning (4) & 100\% & 100\% & 100\% \\
+Research (4) & 75\% & 75\% & 75\% \\
+\midrule
+\textbf{Overall (12)} & \textbf{83.3\%} & \textbf{83.3\%} & \textbf{83.3\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{DIT Routing Ablation}\label{app:routing-ablation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\columnwidth]{fig4_routing_ablation.pdf}
+\caption{DIT routing classifier accuracy by feature subset. D alone achieves 69.5\%; the full D+I+T model reaches 90.2\%. Random baseline: 33.3\%.}
+\label{fig:routing_ablation}
+\end{figure}
+
+\section{DIT-Conditioned Accuracy}\label{app:dit-accuracy}
+
+\begin{table}[ht]
+\centering
+\caption{Accuracy by DIT dimension on 70 hard tasks.}
+\small
+\begin{tabular}{lccc}
+\toprule
+Task Subset & Flat & Hierarchical & Debate \\
+\midrule
+High-D (D $\geq$ 0.7) & 15.0\% & 89.0\% & 33.0\% \\
+High-I (I $\geq$ 0.7) & 12.0\% & 0.0\% & 88.0\% \\
+Balanced (D $\approx$ I) & 25.0\% & 50.0\% & 55.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{D-I-T Alignment Distances}\label{app:dit-distances}
+
+We compute Euclidean distances from each task's D-I-T coordinates to each topology's structural prior: flat (0.2, 0.8, 0.3), hierarchical (0.8, 0.2, 0.5), debate (0.3, 0.7, 0.3). The minimum-distance topology matches the actual best-performing topology in 74 of 82 tasks (90\% prediction accuracy). The 8 mismatches cluster in the overlap region of DIT space where decomposability and iterativeness scores are both moderate.
+
+\section{Failure Analysis}\label{appendix:failure-analysis}
+
+Three dominant failure modes emerged across the 82-task suite:
+
+\textbf{Flat failures (57/70 hard tasks):} Context overload on multi-part tasks, anchoring bias (committing to first approach without revision), and pipeline shortcutting (skipping verification steps to save tokens).
+
+\textbf{Hierarchical failures (33/70):} Predominantly on high-iterativeness tasks. The planner fragments cross-cutting concerns; when a problem requires holistic understanding (e.g., detecting race conditions across functions), splitting by function misses emergent interaction bugs. On high-I tasks, hierarchical achieved 0\% accuracy.
+
+\textbf{Debate failures (29/70):} Predominantly on high-decomposability tasks. Two agents produce complete but architecturally incompatible solutions; the merge step introduces inconsistencies that neither agent would have created alone. On high-D tasks, debate achieved only 33\% accuracy.
+
+The failure patterns align with D-I-T predictions: hierarchical fails when I is high (decomposition hurts), debate fails when D is high (merging divergent designs hurts).
+
+\section{Reproducibility}\label{app:reproducibility}
+
+\textbf{Model:} Claude Opus 4.6 (primary backbone, 738 runs across 3 seeds), Claude Sonnet 4.6 (secondary backbone, 36 runs). Default temperature, 1M context window.
+
+\textbf{Tools:} Read, Write, Edit, Bash, Grep, Glob, WebSearch, WebFetch (identical across all topologies).
+
+\textbf{Topology configurations:} Flat = single-agent ReAct loop. Hierarchical = planner agent decomposes task, spawns executor agents via Task tool. Debate = two independent agents solve in parallel, results compared and reconciled.
+
+\textbf{Evaluation:} Single human evaluator scoring correct/partial/incorrect per task-topology pair. Correct = fully matches expected answer. Partial = correct approach with minor errors. Incorrect = fundamentally wrong or incomplete.
+
+\textbf{Total runs:} 794 (738 Opus across 3 seeds + 36 Sonnet + 20 flat-2$\times$-budget control).
+
+\textbf{Artifacts released:} All 82 task prompts (JSON), expected answers, raw results per topology, D-I-T annotations, and figure generation scripts.

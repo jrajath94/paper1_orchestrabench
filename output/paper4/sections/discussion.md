@@ -1,0 +1,33 @@
+# Discussion
+
+## When Switching Helps versus When It Hurts
+
+The results paint a clear picture: topology switching pays off when tasks genuinely change structural character, and is neutral or slightly harmful when they don't. The 85.7\% switching precision is encouraging, but the two negative switches reveal a real failure mode. Both occurred because early execution patterns (a clarification question, a test failure on the first attempt) looked like iterativeness to the D-I-T estimator, when the underlying task was actually decomposable. The estimator needs more than 8 actions of context to distinguish genuine iterative structure from transient hiccups.
+
+One possible fix is to require higher confidence before early switches. A phase boundary detected in the first 10 actions could face a stricter threshold ($\delta = 0.6$ instead of $\delta = 0.4$). We did not pursue this in the current work to keep the system simple, but it is an obvious next step.
+
+## Connection to Prior Adaptive Work
+
+MDAgents \citep{kim_2024} demonstrated that adapting orchestration structure (solo vs. group) based on task complexity improves medical decision-making. Our work extends this principle in two ways. First, we adapt between three structurally distinct topologies rather than two modes. Second, we adapt during execution rather than at dispatch. The MDAgents complexity assessment happens once before the agents start working; our D-I-T estimation continues throughout.
+
+The concurrent AdaptOrch framework from Yu \citep{adaptorch_2026} provides the closest comparison. Yu showed that topology choice dominates system performance when LLM capabilities converge across providers, a finding that aligns with our OrchestraBench results. But Yu's system selects topology per-task, not per-phase. On the 42 multi-phase tasks in our suite, this distinction matters: static-oracle (which mirrors Yu's dispatch-time selection) achieves 88.1\% while our runtime switching reaches 83.3\%. The 4.8-point gap comes from switching overhead and imperfect phase detection. The 23.8-point gap between our system and static-debate shows the value of the approach even with its current limitations.
+
+RouteLLM \citep{routellm_2025} and bandit-based LLM routing \citep{banditllm_2025} established that routing decisions can be made with contextual bandits. We apply the same paradigm at a different granularity: routing execution phases to topologies rather than queries to models. The bandit formulation transfers cleanly; the challenge is defining the context (D-I-T features from traces rather than query embeddings) and managing the longer feedback loops.
+
+## Limitations
+
+We are direct about what this work does not show.
+
+**Single backbone.** All experiments use Claude Opus 4.6. Topology-task alignment patterns might differ with other models. Our prior OrchestraBench work found that secondary backbone results converged on easy tasks but we did not test switching behavior across backbones.
+
+**82 tasks.** The suite is small by machine learning standards. With 70 hard tasks and 42 multi-phase tasks, our statistical power is limited. The 78.6\% success rate has a 95\% confidence interval of roughly $\pm$9.5 points (binomial). Larger-scale evaluation is needed to confirm the effect size.
+
+**Phase boundary detection is brittle.** Our Euclidean distance heuristic with a fixed threshold is simple but not optimal. It misses gradual transitions and can be fooled by sudden but temporary shifts. Learned change-point detectors (e.g., BOCPD) would likely perform better.
+
+**Switching overhead is non-trivial.** 800 tokens per switch and 8.2\% total overhead means the approach has negative expected value on tasks where switching doesn't improve outcomes. The cost model helps, but it depends on accurate reward predictions from the bandit, which are themselves uncertain early in execution.
+
+**No cross-task learning.** Each task starts with the same warm-started bandit. The system does not learn from previous tasks to improve switching decisions on new ones. A meta-learning extension could amortize the exploration cost.
+
+## Future Directions
+
+Three directions seem promising. First, replacing the fixed threshold with a learned phase boundary detector trained on our annotated phase boundaries. Second, extending to a continuous topology space where the system can interpolate between topologies (e.g., a partially hierarchical debate) rather than switching discretely between three options. Third, cross-task transfer of switching policies, where the bandit's posterior from completed tasks initializes the prior for new tasks of similar type.
