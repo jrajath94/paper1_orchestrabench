@@ -1,0 +1,78 @@
+\section{Introduction}\label{introduction}
+
+Consider a coding task from SWE-bench: resolve a Django migration bug.
+The first phase is planning. An agent reads the issue, identifies the
+affected modules, and decomposes the fix into three independent file
+edits. Hierarchical orchestration handles this well; a planner delegates
+subtasks to specialists, each working in parallel. But then the agent
+runs the test suite and two tests fail for unexpected reasons. The task
+has shifted. What started as a cleanly decomposable problem has become
+an iterative debugging loop where multiple hypotheses need to be tested,
+compared, and refined. Hierarchical orchestration keeps dispatching
+subtasks to specialists who can't see each other's outputs. Debate,
+where multiple agents argue about the root cause and converge through
+critique, would be the better fit. But the system committed to hierarchy
+at the start and has no way to switch.
+
+This scenario plays out constantly in practice. Our prior work on
+OrchestraBench \citep{anonymous_2026} showed that orchestration topology
+choice is invisible on easy tasks but decisive on hard ones, with debate
+reaching 58.6\% on hard tasks where flat conversation scored 18.6\%. The
+decomposability-iterativeness-tool-diversity (D-I-T) framework we
+developed predicts which topology fits which task with 90\% accuracy.
+But that prediction happens once, before execution begins. It assumes
+each task has a single dominant structure.
+
+Real tasks don't hold still. A SWE-bench task might start with high
+decomposability (plan the fix), shift to high iterativeness (debug the
+failures), then return to moderate decomposability (write clean tests).
+GAIA research tasks often begin with broad information gathering (high
+tool diversity, low iterativeness) before narrowing into deep reasoning
+(low tool diversity, high iterativeness). The structural characteristics
+that determine optimal topology change as the task unfolds.
+
+Every existing adaptive orchestration system misses this. Yu's AdaptOrch
+framework \citep{adaptorch_2026} selects among four canonical topologies
+at dispatch time based on task metadata. MDAgents \citep{kim_2024}
+adapts between solo and group configurations for medical tasks, again
+before execution starts. Evolving Orchestration \citep{evolving_2025}
+trains an RL policy to sequence agents, but that policy is fixed once
+trained. MASS \citep{mass_2025} and G-Designer \citep{gdesigner_2025}
+optimize topologies offline. DyTopo \citep{dytopo_2026} reconstructs
+communication graphs per reasoning round but does not switch between
+structurally different topologies.
+
+Meanwhile, a separate literature on execution trace analysis has shown
+that rich structural signals exist in agent execution logs. MAST
+\citep{cemri_2025} identified 14 failure modes from 150+ traces across 7
+frameworks. TraceCoder \citep{tracecoder_2026} drives debugging cycles
+from trace features. DIG \citep{dig_2026} captures collaboration
+dynamics as time-evolving causal networks. These signals are used for
+post-hoc diagnosis. Nobody feeds them back into topology decisions at
+runtime.
+
+We bridge these two literatures. Our system, which we call AdaptOrch-RT
+(Adaptive Orchestration with Runtime Topology switching), monitors
+execution traces in real time, estimates the current D-I-T
+characteristics of the task, detects when those characteristics shift
+past a threshold (a phase boundary), and switches to the topology whose
+structural prior best matches the new phase. The switching decision is
+formulated as a contextual bandit problem where the context is the
+estimated D-I-T vector and the arms are three canonical topologies: flat
+conversation, hierarchical decomposition, and multi-agent debate.
+
+We make three contributions:
+
+\begin{enumerate}
+\item A \textbf{runtime D-I-T estimator} that extracts decomposability, iterativeness, and tool-diversity features from execution traces as they unfold. The estimator uses rolling windows over tool call diversity, subtask completion rate, and revision count to produce real-time structural characterizations.
+
+\item A \textbf{switching policy} built on a contextual bandit that triggers topology transitions at detected phase boundaries. The policy includes a cost model that accounts for switching overhead (context transfer, re-prompting) and fires only when the expected benefit exceeds the transition cost.
+
+\item \textbf{Controlled experiments} on the 82-task OrchestraBench suite showing that AdaptOrch-RT achieves 78\% task success versus 64.6\% for the best static topology (debate) and 90\% for the oracle that always picks the single best topology per task. Switching occurs on average 1.3 times per hard task, with 85\% of switches improving outcomes.
+\end{enumerate}
+
+The gap between 78\% and 90\% tells us where the remaining challenge
+lies: predicting phase boundaries accurately and reducing switching
+overhead. But the gap between 78\% and 64.6\% tells us that runtime
+topology switching already recovers a substantial fraction of the
+performance left on the table by static assignment.
