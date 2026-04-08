@@ -1,0 +1,349 @@
+{
+  "audit_metadata": {
+    "date": "2026-03-16",
+    "auditor": "forensic_cross_section_audit",
+    "sections_audited": [
+      "introduction.md",
+      "related_work.md",
+      "methods.md",
+      "experiments.md",
+      "results.md",
+      "discussion.md",
+      "conclusion.md",
+      "appendix.tex",
+      "appendix.md"
+    ],
+    "verdict": "CRITICAL INCONSISTENCIES FOUND -- 6 critical, 9 number mismatches, 4 claim contradictions, 3 terminology issues, 2 cross-reference issues"
+  },
+
+  "critical_inconsistencies": [
+    {
+      "id": "CRIT-01",
+      "severity": "CRITICAL",
+      "title": "Run count contradiction: 282 single-run vs 794 three-seed replication",
+      "description": "The Methods section (3.6), Experiments section (4.3), Discussion section (6.5), Conclusion, Introduction (contribution 2), and appendix.tex Reproducibility section all describe a SINGLE-RUN study with 282 total runs. The Results section (5.1, 5.7) describes THREE-SEED REPLICATION with 738+36+20=794 total runs. These are fundamentally incompatible experimental designs.",
+      "locations": {
+        "says_282_single_run": [
+          {"file": "introduction.md", "line": 15, "text": "yielding 282 total runs (246 primary backbone plus 36 secondary backbone)"},
+          {"file": "methods.md", "line": 63, "text": "producing 246 runs... adding 36 runs for a grand total of 282 runs"},
+          {"file": "methods.md", "line": 65, "text": "This is a single-run study; each task-topology pair runs once. Repeated trials with different random seeds are planned for future work; here, we report point estimates without confidence intervals"},
+          {"file": "experiments.md", "line": 19, "text": "Each topology runs each task once on the primary backbone, yielding 246 total runs... for a grand total of 282 runs. We report per-task success rate, token efficiency, and wall-clock latency as point estimates. This is a single-run study"},
+          {"file": "discussion.md", "line": 1, "text": "The results from 82 tasks and 282 runs say yes"},
+          {"file": "discussion.md", "line": 28, "text": "The sample size (82 tasks, single run per cell, 282 total runs) rules out confidence intervals and pairwise significance tests"},
+          {"file": "conclusion.md", "line": 5, "text": "produced 282 total runs (246 on Claude Opus 4.6, 36 on Claude Sonnet 4.6)"},
+          {"file": "appendix.tex", "line": 118, "text": "Total runs: 282 (246 Opus + 36 Sonnet)"},
+          {"file": "appendix.tex", "line": 110, "text": "Claude Opus 4.6 (primary backbone, 246 runs), Claude Sonnet 4.6 (secondary backbone, 36 runs)"}
+        ],
+        "says_794_three_seed": [
+          {"file": "results.md", "line": 3, "text": "Each task-topology pair ran three times with different random seeds, producing 738 primary runs (82 tasks x 3 topologies x 3 seeds)"},
+          {"file": "results.md", "line": 50, "text": "Seven-hundred-ninety-four total runs (738 primary Opus, 36 Sonnet, 20 flat-2x control) with three-seed replication provide confidence intervals for all primary comparisons"}
+        ]
+      },
+      "impact": "DESK REJECT. A reviewer reading Methods then Results will immediately see that the paper contradicts itself about its own experimental design. This is the single most damaging inconsistency."
+    },
+    {
+      "id": "CRIT-02",
+      "severity": "CRITICAL",
+      "title": "Confidence intervals claimed in Results but explicitly denied in Methods, Experiments, and Discussion",
+      "description": "Results section reports 95% CIs (e.g., Flat 28.9 +/- 1.7). Methods section explicitly states 'we report point estimates without confidence intervals.' Experiments section says 'future work will add repeated trials with different random seeds to enable confidence intervals.' Discussion Limitations says '282 total runs rules out confidence intervals and pairwise significance tests.' These sections say CIs are impossible; Results reports them.",
+      "locations": {
+        "claims_CIs_exist": [
+          {"file": "results.md", "line": 3, "text": "Table 1 reports mean accuracy with 95% confidence intervals computed from the three replicates"},
+          {"file": "results.md", "line": 9, "text": "Flat | 28.9 | +/-1.7"},
+          {"file": "results.md", "line": 14, "text": "Confidence intervals are non-overlapping between all three pairs"},
+          {"file": "results.md", "line": 50, "text": "with three-seed replication provide confidence intervals for all primary comparisons"}
+        ],
+        "denies_CIs_possible": [
+          {"file": "methods.md", "line": 65, "text": "here, we report point estimates without confidence intervals and do not perform pairwise significance tests"},
+          {"file": "experiments.md", "line": 19, "text": "future work will add repeated trials with different random seeds to enable confidence intervals and pairwise significance testing"},
+          {"file": "discussion.md", "line": 28, "text": "The sample size (82 tasks, single run per cell, 282 total runs) rules out confidence intervals and pairwise significance tests"}
+        ]
+      },
+      "impact": "DESK REJECT. Internally contradictory claims about statistical methodology."
+    },
+    {
+      "id": "CRIT-03",
+      "severity": "CRITICAL",
+      "title": "Discussion Future Work calls for repeated trials that Results already claims to have done",
+      "description": "Discussion 6.4 lists 'adding repeated trials per cell and expanding the task suite, enabling confidence intervals and proper significance testing' as the MOST IMMEDIATE next step. But Results 5.1 already reports three-seed replication with CIs. Discussion 6.1 also says 'future work with repeated trials and more topologies will quantify it precisely' in the opening paragraph.",
+      "locations": [
+        {"file": "discussion.md", "line": 1, "text": "future work with repeated trials and more topologies will quantify it precisely"},
+        {"file": "discussion.md", "line": 21, "text": "The most immediate next step is adding repeated trials per cell and expanding the task suite, enabling confidence intervals"},
+        {"file": "results.md", "line": 3, "text": "Each task-topology pair ran three times with different random seeds"},
+        {"file": "results.md", "line": 50, "text": "three-seed replication provide confidence intervals for all primary comparisons"}
+      ],
+      "impact": "HIGH. Makes the paper look like it was partially updated (Results upgraded to 3-seed) but Discussion was not brought in sync."
+    },
+    {
+      "id": "CRIT-04",
+      "severity": "CRITICAL",
+      "title": "DIT structural prior coordinates for Flat topology differ between Methods and Appendix",
+      "description": "Methods section defines Flat's structural prior as (0.2, 0.8, 0.3). Appendix.tex Alignment Distances section uses (0.3, 0.8, 0.3) for Flat. Appendix.md uses (D=0.2, I=0.8, T=0.3) in the Structural priors listing. This means the appendix.tex D-I-T alignment distance computations may use wrong coordinates.",
+      "locations": [
+        {"file": "methods.md", "line": 19, "text": "(D_prior, I_prior, T_prior) = (0.2, 0.8, 0.3)"},
+        {"file": "appendix.tex", "line": 94, "text": "flat (0.3, 0.8, 0.3), hierarchical (0.8, 0.2, 0.4), debate (0.5, 0.7, 0.3)"},
+        {"file": "appendix.md", "line": 107, "text": "Flat: (D=0.2, I=0.8, T=0.3)"}
+      ],
+      "impact": "HIGH. Flat D-prior is 0.2 in methods/appendix.md but 0.3 in appendix.tex. This means either the distance computations in appendix.tex or the definition in methods is wrong."
+    },
+    {
+      "id": "CRIT-05",
+      "severity": "CRITICAL",
+      "title": "DIT structural prior coordinates for Hierarchical differ between Methods and Appendix",
+      "description": "Methods section defines Hierarchical's prior as (0.8, 0.2, 0.5). Appendix.tex uses (0.8, 0.2, 0.4). Appendix.md uses (D=0.8, I=0.2, T=0.5). T_prior is 0.5 in methods but 0.4 in appendix.tex.",
+      "locations": [
+        {"file": "methods.md", "line": 21, "text": "Prior: (0.8, 0.2, 0.5)"},
+        {"file": "appendix.tex", "line": 94, "text": "hierarchical (0.8, 0.2, 0.4)"},
+        {"file": "appendix.md", "line": 108, "text": "Hierarchical: (D=0.8, I=0.2, T=0.5)"}
+      ],
+      "impact": "HIGH. Either distance computations or the definition is wrong. All distances to Hierarchical in the appendix tables may be incorrect."
+    },
+    {
+      "id": "CRIT-06",
+      "severity": "CRITICAL",
+      "title": "DIT structural prior coordinates for Debate differ between Methods and Appendix",
+      "description": "Methods section defines Debate's prior as (0.3, 0.7, 0.3). Appendix.tex uses (0.5, 0.7, 0.3). Appendix.md uses (D=0.4, I=0.9, T=0.3). Three different coordinate sets for Debate across three locations.",
+      "locations": [
+        {"file": "methods.md", "line": 23, "text": "Prior: (0.3, 0.7, 0.3)"},
+        {"file": "appendix.tex", "line": 94, "text": "debate (0.5, 0.7, 0.3)"},
+        {"file": "appendix.md", "line": 109, "text": "Debate: (D=0.4, I=0.9, T=0.3)"}
+      ],
+      "impact": "DESK REJECT. Three different Debate priors across three locations completely undermines the alignment distance framework. D_prior is 0.3, 0.4, or 0.5; I_prior is 0.7 or 0.9. No reader can know which is correct."
+    }
+  ],
+
+  "number_mismatches": [
+    {
+      "id": "NUM-01",
+      "title": "Accuracy percentages: single-run vs mean-of-3 values coexist",
+      "description": "Results Table 1 reports MEAN accuracy (28.9, 57.3, 64.2) with individual runs (29.3/26.8/30.5, 59.8/57.3/54.9, 64.6/62.2/65.9). Appendix.tex Combined Results table reports single-run values matching Run 1 exactly: Flat 29.3%, Hierarchical 59.8%, Debate 64.6%. The appendix appears to contain the original single-run data while Results reports 3-seed means, but neither explains the relationship.",
+      "locations": [
+        {"file": "results.md", "line": 9, "text": "Flat | 28.9 | +/-1.7 | 29.3 / 26.8 / 30.5"},
+        {"file": "appendix.tex", "line": 53, "text": "Overall (82) & 29.3% & 59.8% & 64.6%"}
+      ],
+      "impact": "MEDIUM. Creates confusion about which numbers are authoritative."
+    },
+    {
+      "id": "NUM-02",
+      "title": "Task category counts: 3 categories (30+26+26=82) vs 4 categories in appendix (Coding 22 + Reasoning 22 + Research 14 + Multi-domain 12 = 70 hard)",
+      "description": "Methods and Experiments define three categories: Coding (30), Research (26), Reasoning (26) = 82 total. Appendix.tex Scaled Study table breaks 70 hard tasks into FOUR categories: Coding (22), Reasoning (22), Research (14), Multi-domain (12). The 'Multi-domain' / 'Multi-skill' category is never mentioned in the main text. Where do the 12 multi-domain tasks go in the 30/26/26 split?",
+      "locations": [
+        {"file": "methods.md", "line": 53, "text": "Coding (30 tasks)... Research (26 tasks)... Reasoning (26 tasks)"},
+        {"file": "appendix.tex", "line": 32, "text": "Coding (22)"},
+        {"file": "appendix.tex", "line": 33, "text": "Reasoning (22)"},
+        {"file": "appendix.tex", "line": 34, "text": "Research (14)"},
+        {"file": "appendix.tex", "line": 35, "text": "Multi-domain (12)"},
+        {"file": "appendix.md", "line": 44, "text": "HARD-MULTI-01 | Multi-skill"}
+      ],
+      "impact": "HIGH. The main paper claims 3 categories but the appendix has 4. If multi-domain tasks are distributed into the 3 main categories, the per-category DIT means may be wrong. The 30+26+26 split becomes impossible to reconcile with 22+22+14+12."
+    },
+    {
+      "id": "NUM-03",
+      "title": "Pilot vs scaled task counts don't align with appendix task listings",
+      "description": "The paper claims 12 easy + 70 hard = 82 tasks. The appendix lists 12 pilot tasks (A.1) and 20 scaled tasks (A.2). That accounts for only 32 tasks. Where are the remaining 50 hard tasks? The appendix scaled results table (B.2) only has 20 tasks, not 70.",
+      "locations": [
+        {"file": "methods.md", "line": 51, "text": "82 custom tasks (12 easy + 70 hard)"},
+        {"file": "appendix.md", "line": 7, "text": "A.1 Pilot Study Tasks (12 tasks, medium difficulty)"},
+        {"file": "appendix.md", "line": 24, "text": "A.2 Scaled Study Tasks (20 tasks, hard difficulty)"},
+        {"file": "appendix.md", "line": 97, "text": "Totals | 2/20 | 11/20 | 13/20"}
+      ],
+      "impact": "MEDIUM. Appendix only documents 32 of 82 tasks. A reviewer would question whether the remaining 50 tasks actually exist."
+    },
+    {
+      "id": "NUM-04",
+      "title": "Hard task accuracy: appendix says 18.6%/52.9%/58.6% but Results 3-seed means imply different hard-task numbers",
+      "description": "Appendix.tex table shows Overall(82): 29.3%/59.8%/64.6% (single-run). Results reports 3-seed means: 28.9/57.3/64.2. Appendix Hard(70): 18.6%/52.9%/58.6% (single-run). The 3-seed hard-task means are never explicitly stated in Results. Discussion and Conclusion cite 18.6% for flat on hard tasks, which is a single-run number, not a 3-seed mean.",
+      "locations": [
+        {"file": "appendix.tex", "line": 37, "text": "Overall (70) | 18.6% | 52.9% | 58.6%"},
+        {"file": "discussion.md", "line": 9, "text": "flat conversation is never the recommended topology for hard tasks; its 18.6% accuracy"},
+        {"file": "conclusion.md", "line": 5, "text": "flat conversation collapses to 18.6% on hard tasks"},
+        {"file": "results.md", "line": 9, "text": "Flat | 28.9 mean (3-seed)"}
+      ],
+      "impact": "MEDIUM. The 18.6% figure is from single-run data but is cited in sections that should reference 3-seed means."
+    },
+    {
+      "id": "NUM-05",
+      "title": "Cohen's kappa average: Introduction says 0.84, actual average of reported values is 0.843",
+      "description": "Introduction says 'inter-annotator agreement averaging 0.84 Cohen's kappa.' Individual values are 0.83 (D), 0.79 (I), 0.91 (T). Average = (0.83+0.79+0.91)/3 = 0.843. Reported as 0.84 -- this is a rounding choice, not an error, but worth noting for precision.",
+      "locations": [
+        {"file": "introduction.md", "line": 13, "text": "inter-annotator agreement averaging 0.84 Cohen's kappa"},
+        {"file": "methods.md", "line": 59, "text": "0.83 for D, 0.79 for I, 0.91 for T"}
+      ],
+      "impact": "NEGLIGIBLE. Rounding from 0.843 to 0.84 is acceptable."
+    },
+    {
+      "id": "NUM-06",
+      "title": "Routing accuracy: 90% on 82 tasks (main text) vs 95% on 20 scaled tasks (appendix) vs 74/82=90.2% (appendix.tex)",
+      "description": "Results (5.4) says 90% on 82-task suite. Appendix.tex says 74 of 82 tasks (= 90.2%). Appendix.md says 19 of 20 scaled tasks (95%). These are different computations over different subsets but are not explicitly reconciled. The appendix only shows distance tables for 32 tasks (12 pilot + 20 scaled). How was 74/82 computed with 50 tasks missing from the appendix?",
+      "locations": [
+        {"file": "results.md", "line": 36, "text": "selects the best topology with 90% accuracy across the 82-task suite"},
+        {"file": "appendix.tex", "line": 94, "text": "74 of 82 tasks (90% prediction accuracy)"},
+        {"file": "appendix.md", "line": 155, "text": "19 of 20 scaled tasks (95.0%)"}
+      ],
+      "impact": "LOW. The 90% figure is self-consistent (74/82). The 95% on scaled tasks is a subset. But the missing 50 tasks' distances are not shown."
+    },
+    {
+      "id": "NUM-07",
+      "title": "Flat-2x-budget: 20 hard tasks at 35% vs baseline 20% -- but hard-task baseline for flat is 18.6%",
+      "description": "Results 5.3 says flat baseline on the 20-task subset is 20%. The overall flat accuracy on all 70 hard tasks is 18.6%. This difference is expected if the 20-task sample has slightly different characteristics, but it's never explained.",
+      "locations": [
+        {"file": "results.md", "line": 30, "text": "flat-baseline (20%)"},
+        {"file": "appendix.tex", "line": 37, "text": "Overall (70) | 18.6%"}
+      ],
+      "impact": "LOW. The 20-task subset rate (20%) naturally differs from the 70-task rate (18.6%). Could note this."
+    },
+    {
+      "id": "NUM-08",
+      "title": "Appendix pilot table: Flat is 11/12 (91.7%) but appendix task-level data shows RESEARCH-03 as 'partial' not 'incorrect'",
+      "description": "Appendix B.1 counts 11/12 for flat. Looking at the per-task data, RESEARCH-03 is 'partial.' The totals row says 11/12, implying partial counts as incorrect. But appendix E.4 defines 'partial' as 'some requirements met, no major errors in completed portions.' The scoring conflates partial with incorrect for the binary metric, which is fine, but inconsistent with appendix E.4's three-tier system.",
+      "locations": [
+        {"file": "appendix.md", "line": 69, "text": "RESEARCH-03 | partial"},
+        {"file": "appendix.md", "line": 71, "text": "Totals | 11/12"},
+        {"file": "appendix.md", "line": 257, "text": "correct (all requirements met), partial (some requirements met), or incorrect (fundamental errors)"}
+      ],
+      "impact": "LOW. Binary correct/not-correct is standard, but the three-tier system in the appendix makes it confusing."
+    },
+    {
+      "id": "NUM-09",
+      "title": "Hierarchical outperforms debate by '56pp' (89% vs 33%) but 89-33=56 is correct; debate outperforms hierarchical by '88pp' (88% vs 0%) but 88-0=88 is correct",
+      "description": "The percentage point calculations in Results 5.2 are arithmetically correct. No issue here.",
+      "locations": [
+        {"file": "results.md", "line": 24, "text": "hierarchical outperforms debate by 56pp (89% vs. 33%). On high-I tasks, debate outperforms hierarchical by 88pp (88% vs. 0%)"}
+      ],
+      "impact": "NONE. Correct calculations."
+    }
+  ],
+
+  "claim_contradictions": [
+    {
+      "id": "CLAIM-01",
+      "severity": "CRITICAL",
+      "title": "Introduction promises 282 single-run study; Results delivers 794-run replicated study",
+      "description": "Introduction contribution 2 promises '282 total runs.' Results Section 5.1 delivers 794 runs. Introduction never mentions replication or confidence intervals. Results is built around them.",
+      "locations": [
+        {"file": "introduction.md", "line": 15, "text": "yielding 282 total runs (246 primary backbone plus 36 secondary backbone)"},
+        {"file": "results.md", "line": 3, "text": "Each task-topology pair ran three times with different random seeds, producing 738 primary runs"},
+        {"file": "results.md", "line": 50, "text": "Seven-hundred-ninety-four total runs"}
+      ],
+      "impact": "DESK REJECT. Introduction and Results describe different experiments."
+    },
+    {
+      "id": "CLAIM-02",
+      "severity": "CRITICAL",
+      "title": "Conclusion summarizes 282-run single-run study but Results reports 794-run replicated study",
+      "description": "Conclusion says '282 total runs' and does not mention replication, confidence intervals, or 3-seed design. It summarizes the pre-replication version of the paper.",
+      "locations": [
+        {"file": "conclusion.md", "line": 5, "text": "produced 282 total runs (246 on Claude Opus 4.6, 36 on Claude Sonnet 4.6)"},
+        {"file": "results.md", "line": 50, "text": "Seven-hundred-ninety-four total runs"}
+      ],
+      "impact": "HIGH. Conclusion is stale."
+    },
+    {
+      "id": "CLAIM-03",
+      "severity": "HIGH",
+      "title": "Discussion opens with '82 tasks and 282 runs' but Results has 794 runs",
+      "description": "Discussion first sentence: 'The results from 82 tasks and 282 runs say yes.' Should be 794.",
+      "locations": [
+        {"file": "discussion.md", "line": 1, "text": "The results from 82 tasks and 282 runs say yes"},
+        {"file": "results.md", "line": 50, "text": "Seven-hundred-ninety-four total runs"}
+      ],
+      "impact": "HIGH. Discussion contradicts Results on a basic fact."
+    },
+    {
+      "id": "CLAIM-04",
+      "severity": "HIGH",
+      "title": "Methods Section 3.6 says 'see Section 5.6' for external validity, but Section 5.6 is Token Efficiency",
+      "description": "Methods 3.5 says 'giving us control over structural diversity at the cost of external validity (see Section 5.6).' But Section 5.6 in Results is 'Token Efficiency Tradeoffs.' The actual limitations/external validity discussion is in Section 5.7 (Limitations).",
+      "locations": [
+        {"file": "methods.md", "line": 51, "text": "at the cost of external validity (see Section 5.6)"},
+        {"file": "results.md", "line": 42, "text": "### 5.6 Token Efficiency Tradeoffs"},
+        {"file": "results.md", "line": 46, "text": "### 5.7 Limitations"}
+      ],
+      "impact": "MEDIUM. Cross-reference off by one section."
+    }
+  ],
+
+  "terminology_issues": [
+    {
+      "id": "TERM-01",
+      "title": "Flat topology described inconsistently: 'flat conversation' vs 'flat topology' vs 'single-agent' vs 'flat agent'",
+      "description": "Methods describes 'flat conversation' as 'agents as equal participants in a multi-turn dialogue loop' (multi-agent). Appendix E.3 describes 'Flat (single-agent)' as 'One Claude Opus 4.6 instance.' These are fundamentally different architectures: multi-agent dialogue loop vs single-agent ReAct loop. The appendix.tex Reproducibility section also says 'Flat = single-agent ReAct loop.'",
+      "locations": [
+        {"file": "methods.md", "line": 19, "text": "Flat conversation organizes agents as equal participants in a multi-turn dialogue loop"},
+        {"file": "appendix.md", "line": 249, "text": "Flat (single-agent). One Claude Opus 4.6 instance receives the task prompt"},
+        {"file": "experiments.md", "line": 15, "text": "Flat conversation runs a single ReAct-style loop"},
+        {"file": "appendix.tex", "line": 114, "text": "Flat = single-agent ReAct loop"}
+      ],
+      "impact": "HIGH. If flat is single-agent, the comparison is single-agent vs multi-agent, not topology-vs-topology. Methods describes a multi-agent flat topology but the implementation is single-agent."
+    },
+    {
+      "id": "TERM-02",
+      "title": "Fourth category 'Multi-domain' / 'Multi-skill' not described in main text",
+      "description": "Appendix.tex uses 'Multi-domain (12)' as a category in the results table. Appendix.md uses 'Multi-skill' in the task listing. Main text only describes three categories: coding, reasoning, research. The fourth category is undocumented in the main paper.",
+      "locations": [
+        {"file": "appendix.tex", "line": 35, "text": "Multi-domain (12)"},
+        {"file": "appendix.md", "line": 44, "text": "HARD-MULTI-01 | Multi-skill"},
+        {"file": "methods.md", "line": 53, "text": "Coding (30 tasks)"},
+        {"file": "methods.md", "line": 55, "text": "Research (26 tasks)"},
+        {"file": "methods.md", "line": 57, "text": "Reasoning (26 tasks)"}
+      ],
+      "impact": "MEDIUM. Name is also inconsistent (Multi-domain vs Multi-skill)."
+    },
+    {
+      "id": "TERM-03",
+      "title": "Pilot task difficulty labels inconsistent: Introduction says 'easy', appendix says 'medium difficulty'",
+      "description": "Introduction and Methods call pilot tasks 'easy' (12 easy, 70 hard). Appendix A.1 header says '12 tasks, medium difficulty.' Individual pilot tasks in the appendix range from 'Easy' to 'Hard' difficulty.",
+      "locations": [
+        {"file": "introduction.md", "line": 9, "text": "82 custom tasks (12 easy, 70 hard)"},
+        {"file": "methods.md", "line": 51, "text": "82 custom tasks (12 easy + 70 hard)"},
+        {"file": "appendix.md", "line": 7, "text": "A.1 Pilot Study Tasks (12 tasks, medium difficulty)"},
+        {"file": "appendix.md", "line": 12, "text": "CODE-02 | ... | Easy"},
+        {"file": "appendix.md", "line": 17, "text": "REASON-03 | ... | Hard"}
+      ],
+      "impact": "MEDIUM. The 'easy'/'hard' split in the main text doesn't match the individual task difficulty labels in the appendix."
+    }
+  ],
+
+  "cross_reference_issues": [
+    {
+      "id": "XREF-01",
+      "title": "Section 5.6 cross-reference mismatch",
+      "description": "Methods 3.5 says 'see Section 5.6' for external validity discussion. Section 5.6 is 'Token Efficiency Tradeoffs.' External validity is discussed in Section 5.7 (Limitations).",
+      "locations": [
+        {"file": "methods.md", "line": 51, "text": "(see Section 5.6)"},
+        {"file": "results.md", "line": 42, "text": "### 5.6 Token Efficiency Tradeoffs"}
+      ],
+      "fix": "Change 'Section 5.6' to 'Section 5.7' in methods.md line 51."
+    },
+    {
+      "id": "XREF-02",
+      "title": "Section 6.4 reference in related_work.md points to a valid Discussion section",
+      "description": "Related work says 'Runtime adaptive switching remains a promising future direction (Section 6.4).' Discussion section 6.4 is 'Future Work' which does discuss adaptive orchestration. This reference is VALID.",
+      "locations": [
+        {"file": "related_work.md", "line": 37, "text": "(Section 6.4)"},
+        {"file": "discussion.md", "line": 19, "text": "### 6.4 Future Work"}
+      ],
+      "fix": "No fix needed. Reference is correct."
+    }
+  ],
+
+  "summary": {
+    "critical_count": 6,
+    "high_count": 5,
+    "medium_count": 5,
+    "low_count": 4,
+    "root_cause": "The Results section was upgraded to 3-seed replication (794 runs, CIs, agent-count control) but Introduction, Methods, Experiments, Discussion Limitations, Discussion Future Work, Conclusion, and Appendix Reproducibility were NOT fully synchronized. Additionally, the DIT structural prior coordinates diverge across three locations (methods.md, appendix.tex, appendix.md), each with slightly different values.",
+    "desk_reject_risk": "YES -- CRIT-01, CRIT-02, CRIT-06 are each individually sufficient for a desk reject. A reviewer cannot determine whether this is a 282-run single-run pilot or a 794-run replicated study. The DIT priors, which are foundational to the alignment framework, have three different versions.",
+    "required_fixes": [
+      "1. DECIDE: Is this a 282-run single-run study or a 794-run 3-seed replicated study? Then make ALL sections consistent with that decision.",
+      "2. If 794-run: Update Introduction (contribution 2), Methods (3.6), Experiments (4.3), Discussion (6.1 opening, 6.4, 6.5), Conclusion, and Appendix Reproducibility to reference 794 runs, 3-seed replication, and CIs.",
+      "3. If 282-run: Revert Results to single-run point estimates, remove CIs, remove Table 1 Run 1/2/3 columns.",
+      "4. RECONCILE DIT prior coordinates: Pick ONE set of values for Flat, Hierarchical, and Debate, and use them consistently in methods.md, appendix.tex, and appendix.md. Recompute all alignment distances with the correct priors.",
+      "5. Fix the 3-category vs 4-category inconsistency: either add Multi-domain/Multi-skill to the main text or explain how those tasks map to the three stated categories.",
+      "6. Fix Section 5.6 cross-reference to Section 5.7.",
+      "7. Reconcile flat topology description: multi-agent dialogue loop (methods) vs single-agent ReAct (appendix/experiments).",
+      "8. Fix difficulty labels: pilot tasks are called 'easy' in main text but 'medium difficulty' in appendix.",
+      "9. If adopting 794-run design: update Discussion Future Work to remove 'adding repeated trials' as next step since it's already done."
+    ]
+  }
+}

@@ -1,0 +1,546 @@
+{
+  "audit_timestamp": "2026-03-16T00:00:00Z",
+  "total_unique_citation_keys": 35,
+  "total_in_bib": 13,
+  "total_missing_from_bib": 22,
+  "verified_real_papers": 33,
+  "fabricated_or_unverifiable": 1,
+  "wrong_metadata_or_key_mismatch": 1,
+  "summary": {
+    "CRITICAL_FABRICATED": 1,
+    "CRITICAL_KEY_MISMATCH": 1,
+    "MISSING_BIB_ENTRIES": 22,
+    "UNKNOWN_AUTHORS_IN_BIB": 1
+  },
+
+  "sections_scanned": [
+    "related_work.md",
+    "introduction.md",
+    "methods.md",
+    "experiments.md",
+    "results.md",
+    "discussion.md",
+    "conclusion.md",
+    "appendix.md"
+  ],
+
+  "all_citation_keys": [
+    "aflow_2025",
+    "agentnet_2025",
+    "agentrx_2026",
+    "bandit_route_2025",
+    "best_route_2025",
+    "cemri_2025",
+    "chen_2024_agentverse",
+    "chen_2024_autoagents",
+    "evolving_2025",
+    "graph_diffusion_2025",
+    "hong_2023",
+    "hu_2025",
+    "kim_2024",
+    "li_2023",
+    "liu_2024",
+    "liu_2024_dylan",
+    "lu_2026",
+    "masfly_2026",
+    "mohammadi_2025",
+    "neural_bandit_2025",
+    "qian_2024",
+    "routellm_2025",
+    "shang_2024",
+    "smit_2024",
+    "tracecoder_2026",
+    "wang_2026",
+    "wei_2022",
+    "wu_2023",
+    "yu_2026",
+    "zhang_2025_aflow",
+    "zhang_2025_evoflow",
+    "zhang_2025_gdesigner",
+    "zhang_2025_metaagent",
+    "zhou_2025",
+    "zhuge_2024"
+  ],
+
+  "fabricated": [
+    {
+      "citation_key": "wang_2026",
+      "claimed_title": "DIG: Dynamic Interaction Graphs (inferred from context)",
+      "claimed_description": "Introduces Dynamic Interaction Graphs that capture emergent collaboration as time-evolving causal networks of agent activations",
+      "severity": "CRITICAL",
+      "evidence": "Searched CrossRef, Semantic Scholar, OpenAlex, Google Scholar, arXiv. Zero results for any paper matching this description. No paper by any author named Wang in 2026 about 'Dynamic Interaction Graphs' for LLM multi-agent systems exists in any indexed database. The description in related_work.md is highly specific (time-evolving causal networks, observable collaboration dynamics) but matches no real paper.",
+      "recommendation": "REMOVE this citation immediately. It appears to be hallucinated/fabricated. The claims attributed to it (making collaboration dynamics observable for the first time) cannot be attributed to a non-existent paper.",
+      "bib_entry_exists": false
+    }
+  ],
+
+  "wrong_metadata_or_key_mismatch": [
+    {
+      "citation_key": "zhou_2025",
+      "issue": "KEY_MISMATCH: The Related Work cites \\cite{zhou_2025} for MASS (Multi-Agent System Search by Han Zhou et al., arXiv:2502.02533), but the bibliography entry for zhou_2025 is a DIFFERENT paper: 'An Approach for Systematic Decomposition of Complex LLM Tasks' by Tianle Zhou (arXiv:2510.07772). These are two completely different papers by different authors.",
+      "severity": "CRITICAL",
+      "bib_entry_title": "An Approach for Systematic Decomposition of Complex LLM Tasks",
+      "bib_entry_author": "Tianle Zhou",
+      "intended_paper_title": "Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies (MASS)",
+      "intended_paper_authors": "Han Zhou, Xingchen Wan, Ruoxi Sun, Hamid Palangi, Shariq Iqbal, Ivan Vulic, Anna Korhonen, Sercan O. Arik",
+      "intended_paper_arxiv": "2502.02533",
+      "recommendation": "Create a new bib entry with a unique key (e.g., hzhou_2025) for the MASS paper. Update \\cite{zhou_2025} in related_work.md to point to the correct key. Decide whether the Tianle Zhou paper is still needed elsewhere."
+    }
+  ],
+
+  "missing_bib_entries": [
+    {
+      "citation_key": "agentnet_2025",
+      "verified": true,
+      "title": "AgentNet: Decentralized Evolutionary Coordination for LLM-based Multi-Agent Systems",
+      "authors": "Yingyao Yang et al.",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "arxiv_id": "2504.00587"
+    },
+    {
+      "citation_key": "agentrx_2026",
+      "verified": true,
+      "title": "AgentRx: Diagnosing AI Agent Failures from Execution Trajectories",
+      "authors": "Microsoft Research team",
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2602.02475"
+    },
+    {
+      "citation_key": "bandit_route_2025",
+      "verified": true,
+      "title": "Learning to Route LLMs from Bandit Feedback: One Policy, Many Trade-offs (BaRP)",
+      "authors": "Jerry Wei, Jinhao Yang et al.",
+      "year": 2025,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2510.07429"
+    },
+    {
+      "citation_key": "best_route_2025",
+      "verified": true,
+      "title": "BEST-Route: Adaptive LLM Routing with Test-Time Optimal Compute",
+      "authors": "Dujian Ding, Ankur Mallick, Shaokun Zhang, Chi Wang et al.",
+      "year": 2025,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2506.22716"
+    },
+    {
+      "citation_key": "chen_2024_agentverse",
+      "verified": true,
+      "title": "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+      "authors": "Weize Chen, Yusheng Su et al.",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "arxiv_id": "2308.10848",
+      "note": "This paper already exists in the bib as chen_2024 but the Related Work uses chen_2024_agentverse. Key mismatch -- need to either rename bib key or update citation."
+    },
+    {
+      "citation_key": "chen_2024_autoagents",
+      "verified": true,
+      "title": "AutoAgents: A Framework for Automatic Agent Generation",
+      "authors": "Guangyao Chen, Siwei Dong et al.",
+      "year": 2024,
+      "venue": "IJCAI 2024",
+      "arxiv_id": "2309.17288"
+    },
+    {
+      "citation_key": "graph_diffusion_2025",
+      "verified": true,
+      "title": "Dynamic Generation of Multi-LLM Agents Communication Topologies with Graph Diffusion Models (GTD)",
+      "authors": "Various",
+      "year": 2025,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2510.07799"
+    },
+    {
+      "citation_key": "hu_2025",
+      "verified": true,
+      "title": "Automated Design of Agentic Systems (ADAS)",
+      "authors": "Shengran Hu, Cong Lu, Jeff Clune",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "arxiv_id": "2408.08435"
+    },
+    {
+      "citation_key": "liu_2024_dylan",
+      "verified": true,
+      "title": "Dynamic LLM-Agent Network: An LLM-agent Collaboration Framework with Agent Team Optimization (DyLAN)",
+      "authors": "Zijun Liu, Yanzhe Zhang, Peng Li, Yang Liu, Diyi Yang",
+      "year": 2024,
+      "venue": "COLM 2024",
+      "arxiv_id": "2310.02170",
+      "note": "This paper already exists in the bib as liu_2024 but the Related Work uses liu_2024_dylan. Key mismatch -- need to either rename bib key or update citation."
+    },
+    {
+      "citation_key": "lu_2026",
+      "verified": true,
+      "title": "DyTopo: Dynamic Topology Routing for Multi-Agent Reasoning via Semantic Matching",
+      "authors": "Yuxing Lu, Yucheng Hu, Xukai Zhao, Jiuxin Cao",
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2602.06039"
+    },
+    {
+      "citation_key": "masfly_2026",
+      "verified": true,
+      "title": "MAS-on-the-Fly: Dynamic Adaptation of LLM-based Multi-Agent Systems at Test Time",
+      "authors": "Various",
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2602.13671"
+    },
+    {
+      "citation_key": "neural_bandit_2025",
+      "verified": true,
+      "title": "Neural Bandit Based Optimal LLM Selection for a Pipeline of Tasks",
+      "authors": "Baran Atalar, Eddie Zhang, Carlee Joe-Wong",
+      "year": 2025,
+      "venue": "arXiv preprint / ACM SIGMETRICS",
+      "arxiv_id": "2508.09958"
+    },
+    {
+      "citation_key": "routellm_2025",
+      "verified": true,
+      "title": "RouteLLM: Learning to Route LLMs with Preference Data",
+      "authors": "Isaac Ong, Amjad Almahairi, Vincent Wu, Wei-Lin Chiang et al.",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "arxiv_id": "2406.18665"
+    },
+    {
+      "citation_key": "shang_2024",
+      "verified": true,
+      "title": "AgentSquare: Automatic LLM Agent Search in Modular Design Space",
+      "authors": "Yu Shang, Yu Li, Keyu Zhao, Likai Ma, Jiahe Liu, Fengli Xu, Yong Li",
+      "year": 2024,
+      "venue": "ICLR 2025",
+      "arxiv_id": "2410.06153"
+    },
+    {
+      "citation_key": "tracecoder_2026",
+      "verified": true,
+      "title": "TraceCoder: A Trace-Driven Multi-Agent Framework for Automated Debugging of LLM-Generated Code",
+      "authors": "Various",
+      "year": 2026,
+      "venue": "ICSE 2026 Research Track",
+      "note": "The Related Work describes this as showing 'execution traces can drive a multi-agent debugging framework through observe-analyze-repair cycles' which matches the verified paper."
+    },
+    {
+      "citation_key": "yu_2026",
+      "verified": true,
+      "title": "AdaptOrch: Task-Adaptive Multi-Agent Orchestration in the Era of LLM Performance Convergence",
+      "authors": "Geunbin Yu",
+      "year": 2026,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2602.16873",
+      "note": "This paper already exists in the bib as adaptorch_2026 but the Related Work uses yu_2026. Key mismatch -- need to either rename bib key or update citation."
+    },
+    {
+      "citation_key": "zhang_2025_aflow",
+      "verified": true,
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "authors": "Jiayi Zhang, Jinyu Xiang et al.",
+      "year": 2025,
+      "venue": "ICLR 2025 Oral",
+      "arxiv_id": "2410.10762",
+      "note": "This paper already exists in the bib as aflow_2025 but the Related Work uses zhang_2025_aflow. Key mismatch -- need to either rename bib key or update citation."
+    },
+    {
+      "citation_key": "zhang_2025_evoflow",
+      "verified": true,
+      "title": "EvoFlow: Evolving Diverse Agentic Workflows On The Fly",
+      "authors": "Guibin Zhang et al.",
+      "year": 2025,
+      "venue": "arXiv preprint",
+      "arxiv_id": "2502.07373"
+    },
+    {
+      "citation_key": "zhang_2025_gdesigner",
+      "verified": true,
+      "title": "G-Designer: Architecting Multi-agent Communication Topologies via Graph Neural Networks",
+      "authors": "Guibin Zhang et al.",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "arxiv_id": "2410.11782"
+    },
+    {
+      "citation_key": "zhang_2025_metaagent",
+      "verified": true,
+      "title": "MetaAgent: Automatically Constructing Multi-Agent Systems Based on Finite State Machines",
+      "authors": "Yaolun Zhang, Xiaogeng Liu, Chaowei Xiao",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "arxiv_id": "2507.22606"
+    },
+    {
+      "citation_key": "zhuge_2024",
+      "verified": true,
+      "title": "GPTSwarm: Language Agents as Optimizable Graphs",
+      "authors": "Mingchen Zhuge, Wenyi Wang, Louis Kirsch, Francesco Faccio, Dmitrii Khizbullin, Jurgen Schmidhuber",
+      "year": 2024,
+      "venue": "ICML 2024 Oral",
+      "url": "https://proceedings.mlr.press/v235/zhuge24a.html"
+    }
+  ],
+
+  "keys_in_bib_but_different_key_used_in_paper": [
+    {
+      "bib_key": "chen_2024",
+      "paper_uses": "chen_2024_agentverse",
+      "paper_title": "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+      "fix": "Either rename bib key to chen_2024_agentverse OR change all \\cite{chen_2024_agentverse} to \\cite{chen_2024}"
+    },
+    {
+      "bib_key": "liu_2024",
+      "paper_uses": "liu_2024_dylan",
+      "paper_title": "Dynamic LLM-Agent Network (DyLAN)",
+      "fix": "Either rename bib key to liu_2024_dylan OR change all \\cite{liu_2024_dylan} to \\cite{liu_2024}"
+    },
+    {
+      "bib_key": "aflow_2025",
+      "paper_uses": "zhang_2025_aflow",
+      "paper_title": "AFlow: Automating Agentic Workflow Generation",
+      "fix": "Either rename bib key to zhang_2025_aflow OR change all \\cite{zhang_2025_aflow} to \\cite{aflow_2025}"
+    },
+    {
+      "bib_key": "adaptorch_2026",
+      "paper_uses": "yu_2026",
+      "paper_title": "AdaptOrch: Task-Adaptive Multi-Agent Orchestration",
+      "fix": "Either rename bib key to yu_2026 OR change all \\cite{yu_2026} to \\cite{adaptorch_2026}"
+    }
+  ],
+
+  "verified_in_bib": [
+    {
+      "citation_key": "wei_2022",
+      "status": "VERIFIED",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "venue_verified": "NeurIPS 2022",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "wu_2023",
+      "status": "VERIFIED",
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "venue_verified": "COLM 2024",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "hong_2023",
+      "status": "VERIFIED",
+      "title": "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+      "venue_verified": "ICLR 2024",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "li_2023",
+      "status": "VERIFIED",
+      "title": "CAMEL: Communicative Agents for Mind Exploration of Large Language Model Society",
+      "venue_verified": "NeurIPS 2023",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "qian_2024",
+      "status": "VERIFIED",
+      "title": "ChatDev: Communicative Agents for Software Development",
+      "venue_verified": "ACL 2024",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "kim_2024",
+      "status": "VERIFIED",
+      "title": "MDAgents: An Adaptive Collaboration of LLMs for Medical Decision-Making",
+      "venue_verified": "NeurIPS 2024",
+      "authors_verified": true,
+      "note": "Paper says NeurIPS 2024 Oral -- confirmed."
+    },
+    {
+      "citation_key": "smit_2024",
+      "status": "VERIFIED",
+      "title": "Should We Be Going MAD? A Look at Multi-Agent Debate Strategies for LLMs",
+      "venue_verified": "ICML 2024",
+      "authors_verified": true,
+      "note": "Bib has 'Andries Smit and Paul and Thomas and others' -- should be corrected to 'Andries Petrus Smit, Nathan Grinsztajn, Paul Duckworth, Thomas D. Barrett'"
+    },
+    {
+      "citation_key": "cemri_2025",
+      "status": "VERIFIED",
+      "title": "Why Do Multi-Agent LLM Systems Fail?",
+      "venue_verified": "arXiv preprint arXiv:2503.13657",
+      "authors_verified": true
+    },
+    {
+      "citation_key": "mohammadi_2025",
+      "status": "VERIFIED",
+      "title": "Evaluation and Benchmarking of LLM Agents: A Survey",
+      "venue_verified": "KDD 2025",
+      "authors_verified": true,
+      "note": "Bib has 'Mahmoud Mohammadi and others' -- should be expanded to full author list"
+    },
+    {
+      "citation_key": "evolving_2025",
+      "status": "VERIFIED",
+      "title": "Multi-Agent Collaboration via Evolving Orchestration",
+      "venue_verified": "NeurIPS 2025 (accepted), arXiv:2505.19591",
+      "authors_verified": false,
+      "note": "Bib has {Unknown} as author. Actual authors: Yufan Dang, Chen Qian et al."
+    },
+    {
+      "citation_key": "aflow_2025",
+      "status": "VERIFIED",
+      "title": "AFlow: Automating Agentic Workflow Generation",
+      "venue_verified": "ICLR 2025 Oral",
+      "authors_verified": false,
+      "note": "Bib has {Unknown} as author. Actual authors: Jiayi Zhang, Jinyu Xiang et al."
+    },
+    {
+      "citation_key": "liu_2024",
+      "status": "VERIFIED",
+      "title": "Dynamic LLM-Agent Network: An LLM-agent Collaboration Framework with Agent Team Optimization",
+      "venue_verified": "COLM 2024",
+      "authors_verified": true
+    }
+  ],
+
+  "unknown_authors_in_bib": [
+    {
+      "citation_key": "aflow_2025",
+      "bib_author": "{Unknown}",
+      "real_authors": "Jiayi Zhang, Jinyu Xiang, Zhaoyang Yu, Fengwei Teng, Xionghui Chen, Jiaqi Chen, Mingchen Zhuge, Xin Cheng, Sirui Hong, Jinlin Wang, Bingnan Zheng, Bang Liu, Yuyu Luo, Chenglin Wu",
+      "note": "Also cited as zhang_2025_aflow in related_work.md but bib key is aflow_2025"
+    },
+    {
+      "citation_key": "evolving_2025",
+      "bib_author": "{Unknown}",
+      "real_authors": "Yufan Dang, Chen Qian, Xueheng Luo, Jingru Fan, Zihao Xie, Ruijie Shi, Weize Chen, Cheng Yang, Xiaoyin Che, Ye Tian, Xuantang Xiong, Lei Han, Zhiyuan Liu, Maosong Sun"
+    },
+    {
+      "citation_key": "adaptorch_2026",
+      "bib_author": "{Unknown}",
+      "real_authors": "Geunbin Yu",
+      "note": "Cited as yu_2026 in related_work.md but bib key is adaptorch_2026"
+    }
+  ],
+
+  "incorrect_author_format_in_bib": [
+    {
+      "citation_key": "smit_2024",
+      "bib_author": "Andries Smit and Paul and Thomas and others",
+      "correct_authors": "Andries Petrus Smit and Nathan Grinsztajn and Paul Duckworth and Thomas D. Barrett"
+    },
+    {
+      "citation_key": "mohammadi_2025",
+      "bib_author": "Mahmoud Mohammadi and others",
+      "correct_authors": "Mahmoud Mohammadi and Yipeng Li and Jane Lo and Wendy Yip"
+    },
+    {
+      "citation_key": "cemri_2025",
+      "bib_author": "Mert Cemri and Melissa Z. Pan and Shuyi Yang and others",
+      "note": "Incomplete but acceptable with 'and others' since there are many authors"
+    }
+  ],
+
+  "new_bib_entries_needed": [
+    {
+      "key": "hzhou_2025",
+      "entry": "@misc{hzhou_2025,\n  title = {Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies},\n  author = {Han Zhou and Xingchen Wan and Ruoxi Sun and Hamid Palangi and Shariq Iqbal and Ivan Vuli{\\'c} and Anna Korhonen and Sercan {\\\"O}. Ar{\\i}k},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2502.02533},\n}"
+    },
+    {
+      "key": "zhang_2025_gdesigner",
+      "entry": "@inproceedings{zhang_2025_gdesigner,\n  title = {G-Designer: Architecting Multi-agent Communication Topologies via Graph Neural Networks},\n  author = {Guibin Zhang and Yanwei Yue and Zhixun Li and Junfeng Fang and Yongchao Chen and Kun Wang and Dawei Cheng and Yuxuan Liang and Haiyang Li and Hao Dong and Yong Li and Yuxiang Zhang},\n  year = {2025},\n  booktitle = {ICML 2025},\n}"
+    },
+    {
+      "key": "zhang_2025_evoflow",
+      "entry": "@misc{zhang_2025_evoflow,\n  title = {EvoFlow: Evolving Diverse Agentic Workflows On The Fly},\n  author = {Guibin Zhang and others},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2502.07373},\n}"
+    },
+    {
+      "key": "hu_2025",
+      "entry": "@inproceedings{hu_2025,\n  title = {Automated Design of Agentic Systems},\n  author = {Shengran Hu and Cong Lu and Jeff Clune},\n  year = {2025},\n  booktitle = {ICLR 2025},\n}"
+    },
+    {
+      "key": "zhuge_2024",
+      "entry": "@inproceedings{zhuge_2024,\n  title = {GPTSwarm: Language Agents as Optimizable Graphs},\n  author = {Mingchen Zhuge and Wenyi Wang and Louis Kirsch and Francesco Faccio and Dmitrii Khizbullin and J{\\\"u}rgen Schmidhuber},\n  year = {2024},\n  booktitle = {ICML 2024},\n}"
+    },
+    {
+      "key": "shang_2024",
+      "entry": "@inproceedings{shang_2024,\n  title = {AgentSquare: Automatic LLM Agent Search in Modular Design Space},\n  author = {Yu Shang and Yu Li and Keyu Zhao and Likai Ma and Jiahe Liu and Fengli Xu and Yong Li},\n  year = {2024},\n  booktitle = {ICLR 2025},\n}"
+    },
+    {
+      "key": "graph_diffusion_2025",
+      "entry": "@misc{graph_diffusion_2025,\n  title = {Dynamic Generation of Multi-LLM Agents Communication Topologies with Graph Diffusion Models},\n  author = {{Unknown}},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2510.07799},\n}"
+    },
+    {
+      "key": "liu_2024_dylan",
+      "note": "ALREADY EXISTS as liu_2024 in bib. Either rename bib key or update citation. Bib entry is correct."
+    },
+    {
+      "key": "chen_2024_agentverse",
+      "note": "ALREADY EXISTS as chen_2024 in bib. Either rename bib key or update citation. Bib entry is correct."
+    },
+    {
+      "key": "chen_2024_autoagents",
+      "entry": "@inproceedings{chen_2024_autoagents,\n  title = {AutoAgents: A Framework for Automatic Agent Generation},\n  author = {Guangyao Chen and Siwei Dong and Yu Shu and Ge Zhang and Jaward Sesay and Thomas Hartvigsen and Lily},\n  year = {2024},\n  booktitle = {IJCAI 2024},\n}"
+    },
+    {
+      "key": "agentnet_2025",
+      "entry": "@inproceedings{agentnet_2025,\n  title = {AgentNet: Decentralized Evolutionary Coordination for LLM-based Multi-Agent Systems},\n  author = {Yingyao Yang and others},\n  year = {2025},\n  booktitle = {NeurIPS 2025},\n}"
+    },
+    {
+      "key": "zhang_2025_metaagent",
+      "entry": "@inproceedings{zhang_2025_metaagent,\n  title = {MetaAgent: Automatically Constructing Multi-Agent Systems Based on Finite State Machines},\n  author = {Yaolun Zhang and Xiaogeng Liu and Chaowei Xiao},\n  year = {2025},\n  booktitle = {ICML 2025},\n}"
+    },
+    {
+      "key": "agentrx_2026",
+      "entry": "@misc{agentrx_2026,\n  title = {AgentRx: Diagnosing AI Agent Failures from Execution Trajectories},\n  author = {{Microsoft Research}},\n  year = {2026},\n  howpublished = {arXiv preprint arXiv:2602.02475},\n}"
+    },
+    {
+      "key": "tracecoder_2026",
+      "entry": "@inproceedings{tracecoder_2026,\n  title = {TraceCoder: A Trace-Driven Multi-Agent Framework for Automated Debugging of LLM-Generated Code},\n  author = {{Unknown}},\n  year = {2026},\n  booktitle = {ICSE 2026},\n}"
+    },
+    {
+      "key": "routellm_2025",
+      "entry": "@inproceedings{routellm_2025,\n  title = {RouteLLM: Learning to Route LLMs with Preference Data},\n  author = {Isaac Ong and Amjad Almahairi and Vincent Wu and Wei-Lin Chiang and others},\n  year = {2025},\n  booktitle = {ICLR 2025},\n}"
+    },
+    {
+      "key": "bandit_route_2025",
+      "entry": "@misc{bandit_route_2025,\n  title = {Learning to Route LLMs from Bandit Feedback: One Policy, Many Trade-offs},\n  author = {Jerry Wei and Jinhao Yang and others},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2510.07429},\n}"
+    },
+    {
+      "key": "neural_bandit_2025",
+      "entry": "@misc{neural_bandit_2025,\n  title = {Neural Bandit Based Optimal LLM Selection for a Pipeline of Tasks},\n  author = {Baran Atalar and Eddie Zhang and Carlee Joe-Wong},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2508.09958},\n}"
+    },
+    {
+      "key": "best_route_2025",
+      "entry": "@misc{best_route_2025,\n  title = {BEST-Route: Adaptive LLM Routing with Test-Time Optimal Compute},\n  author = {Dujian Ding and Ankur Mallick and Shaokun Zhang and Chi Wang and others},\n  year = {2025},\n  howpublished = {arXiv preprint arXiv:2506.22716},\n}"
+    },
+    {
+      "key": "yu_2026",
+      "note": "ALREADY EXISTS as adaptorch_2026 in bib. Either rename bib key or update citation."
+    },
+    {
+      "key": "masfly_2026",
+      "entry": "@misc{masfly_2026,\n  title = {MAS-on-the-Fly: Dynamic Adaptation of LLM-based Multi-Agent Systems at Test Time},\n  author = {{Unknown}},\n  year = {2026},\n  howpublished = {arXiv preprint arXiv:2602.13671},\n}"
+    },
+    {
+      "key": "lu_2026",
+      "entry": "@misc{lu_2026,\n  title = {DyTopo: Dynamic Topology Routing for Multi-Agent Reasoning via Semantic Matching},\n  author = {Yuxing Lu and Yucheng Hu and Xukai Zhao and Jiuxin Cao},\n  year = {2026},\n  howpublished = {arXiv preprint arXiv:2602.06039},\n}"
+    }
+  ],
+
+  "action_items": {
+    "P0_CRITICAL": [
+      "REMOVE citation wang_2026 (DIG/Dynamic Interaction Graphs) -- paper does not exist. This is a FABRICATED citation.",
+      "FIX citation zhou_2025 in related_work.md -- it references MASS but bib entry points to wrong paper. Create new bib entry hzhou_2025 for MASS."
+    ],
+    "P1_BLOCKING_COMPILATION": [
+      "Add 18 missing bib entries (see new_bib_entries_needed above)",
+      "Resolve 4 citation key mismatches where Related Work uses different keys than bib (chen_2024_agentverse, liu_2024_dylan, zhang_2025_aflow, yu_2026)"
+    ],
+    "P2_METADATA_FIXES": [
+      "Fix smit_2024 author list in bib",
+      "Fix mohammadi_2025 author list in bib",
+      "Add real authors to aflow_2025, evolving_2025, adaptorch_2026 (currently {Unknown})"
+    ]
+  }
+}
