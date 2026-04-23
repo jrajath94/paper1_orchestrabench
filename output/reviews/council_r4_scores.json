@@ -1,0 +1,66 @@
+{
+  "round": 4,
+  "reviewers": {
+    "Methodologist": {
+      "Q": 3,
+      "C": 5,
+      "O": 7,
+      "S": 6,
+      "conf": 4,
+      "rec": "Weak Reject"
+    },
+    "Domain Expert": {
+      "Q": 4,
+      "C": 5,
+      "O": 4,
+      "S": 4,
+      "conf": 4,
+      "rec": "Weak Reject"
+    },
+    "Practitioner": {
+      "Q": 5,
+      "C": 7,
+      "O": 6,
+      "S": 4,
+      "conf": 4,
+      "rec": "Borderline"
+    },
+    "Writing Critic": {
+      "Q": 5,
+      "C": 4,
+      "O": 7,
+      "S": 5,
+      "conf": 3,
+      "rec": "Weak Reject"
+    },
+    "Devils Advocate": {
+      "Q": 3,
+      "C": 5,
+      "O": 7,
+      "S": 4,
+      "conf": 5,
+      "rec": "Reject"
+    }
+  },
+  "aggregate": 4.975,
+  "agreement": 0.6799655444098127,
+  "passed": false,
+  "per_dimension": {
+    "Quality": {
+      "avg": 4.0,
+      "weighted": 3.9
+    },
+    "Clarity": {
+      "avg": 5.2,
+      "weighted": 5.25
+    },
+    "Originality": {
+      "avg": 6.2,
+      "weighted": 6.2
+    },
+    "Significance": {
+      "avg": 4.6,
+      "weighted": 4.55
+    }
+  }
+}
