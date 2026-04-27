@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\usepackage[preprint]{neurips_2025}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{natbib}
+
+\title{Orchestration Topology Benchmarking:\\Which Multi-Agent LLM Architecture Fits Which Task?}
+
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The field has been asking ``which multi-agent framework is best?'' --- the wrong question. Each orchestration topology encodes a structural prior about the tasks it will face, and we show that alignment between this prior and measurable task characteristics predicts performance. We introduce OrchestraBench, a controlled benchmark that isolates the topology variable by evaluating three topologies (flat conversation, hierarchical decomposition, multi-agent debate) on 82 tasks spanning coding, research, and reasoning under identical conditions (same LLM backbone, tools, and budget). Three-seed replication produces 794 total runs.
+
+The results split cleanly by task structure, with all pairwise comparisons significant after Holm-Bonferroni correction (Cohen's $d > 2$). Hierarchical reaches 75\% on high-decomposability tasks versus 42\% for debate (+33pp); debate reaches 77\% on high-iterativeness tasks versus 14\% for hierarchical (+63pp). The failure modes are structural mirrors: hierarchical severs cross-cutting concerns, debate produces divergent designs that resist merging. A routing classifier built on our decomposability-iterativeness-tool-diversity (DIT) framework selects the best topology with 90\% accuracy (bootstrap 95\% CI: [84\%, 95\%]), and a flat-2$\times$-budget control shows that topology structure accounts for two-thirds of the multi-agent advantage.
+
+Orchestration topology is a first-class design variable, not a detail to be decided by convention. We release our task suite, failure taxonomy, and a topology selection guide that turns the choice from guesswork into geometry.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/methods}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\appendix
+\input{sections/appendix}
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+
+\end{document}
