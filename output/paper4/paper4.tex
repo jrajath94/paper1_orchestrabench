@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[preprint]{neurips_2025}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{natbib}
+
+\title{Adaptive Orchestration with Runtime Topology Switching:\\When Static Multi-Agent Architecture Assignment Falls Short}
+
+\author{Anonymous}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Multi-agent LLM systems select an orchestration topology (flat conversation, hierarchical decomposition, or debate) once per task and hold it fixed throughout execution. But real tasks change structure mid-execution: a coding task starts with decomposable planning, shifts to iterative debugging, then returns to systematic testing. Static assignment captures only the dominant phase.
+
+We present AdaptOrch-RT, a system that estimates task-structure characteristics from execution traces in real time and switches topologies at detected phase boundaries. A runtime feature extractor computes rolling decomposability, iterativeness, and tool-diversity (D-I-T) estimates from a sliding window of agent actions. When these estimates shift past a threshold, a contextual bandit selects the topology whose structural prior best matches the new phase. A cost model ensures switching fires only when expected gains exceed transition overhead.
+
+On the 82-task OrchestraBench suite (70 hard tasks), AdaptOrch-RT achieves 78.6\% task success, up from 64.6\% for the best static topology (debate) and within 11.4 points of the oracle upper bound. Gains concentrate on multi-phase tasks: 83.3\% versus 59.5\% for static-debate (+23.8pp). The system triggers 1.3 switches per hard task on average; 85.7\% of switches improve outcomes. Token overhead is 8.2\% above the static-oracle baseline. The results show that topology should be treated as a runtime variable, not a design-time constant.
+\end{abstract}
+
+\input{sections/introduction}
+\input{sections/methods}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+
+\end{document}

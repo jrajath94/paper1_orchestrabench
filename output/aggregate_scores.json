@@ -1,0 +1,148 @@
+{
+  "round": "9point5_target",
+  "timestamp": "2026-03-17T14:00:00Z",
+  "paper": "Orchestration Topology Benchmarking: Which Multi-Agent LLM Architecture Fits Which Task?",
+  "venue": "NeurIPS 2026",
+  "prior_round": {
+    "round": "council_final",
+    "aggregate": 6.6,
+    "passed": true
+  },
+  "reviewers": {
+    "methodology_skeptic": {
+      "quality": 8,
+      "clarity": 8,
+      "originality": 8,
+      "significance": 7,
+      "overall": "accept",
+      "overall_numeric": 8,
+      "confidence": 4,
+      "weight_distribution": {
+        "quality": 0.40,
+        "clarity": 0.15,
+        "originality": 0.15,
+        "significance": 0.30
+      },
+      "weighted_score": 7.70,
+      "key_concern": "82 tasks and single model family limit generalization claims",
+      "key_strength": "Proper statistical methodology with effect sizes, corrected comparisons, and bootstrap CIs"
+    },
+    "novelty_assessor": {
+      "quality": 7,
+      "clarity": 8,
+      "originality": 9,
+      "significance": 8,
+      "overall": "accept",
+      "overall_numeric": 8,
+      "confidence": 4,
+      "weight_distribution": {
+        "quality": 0.15,
+        "clarity": 0.15,
+        "originality": 0.40,
+        "significance": 0.30
+      },
+      "weighted_score": 8.15,
+      "key_concern": "Only 3 of 5 characterized topologies evaluated; extensibility claims are predictions not demonstrations",
+      "key_strength": "Presents a falsifiable geometric theory of topology selection, not just empirical comparisons"
+    },
+    "clarity_reviewer": {
+      "quality": 7,
+      "clarity": 9,
+      "originality": 8,
+      "significance": 7,
+      "overall": "accept",
+      "overall_numeric": 8,
+      "confidence": 4,
+      "weight_distribution": {
+        "quality": 0.15,
+        "clarity": 0.40,
+        "originality": 0.15,
+        "significance": 0.30
+      },
+      "weighted_score": 7.85,
+      "key_concern": "Page count may need trimming for 9-page main body limit",
+      "key_strength": "Each section has clear purpose; writing reads like confident human researcher"
+    },
+    "domain_expert": {
+      "quality": 8,
+      "clarity": 8,
+      "originality": 8,
+      "significance": 8,
+      "overall": "accept",
+      "overall_numeric": 8,
+      "confidence": 5,
+      "weight_distribution": {
+        "quality": 0.25,
+        "clarity": 0.15,
+        "originality": 0.25,
+        "significance": 0.35
+      },
+      "weighted_score": 8.00,
+      "key_concern": "Single model family; no validation on open-source models",
+      "key_strength": "Practitioner-facing contributions (selection rules, failure taxonomy, dimension importance) are immediately useful"
+    },
+    "ethics_reproducibility": {
+      "quality": 7,
+      "clarity": 8,
+      "originality": 7,
+      "significance": 7,
+      "overall": "borderline_accept",
+      "overall_numeric": 7,
+      "confidence": 4,
+      "weight_distribution": {
+        "quality": 0.20,
+        "clarity": 0.20,
+        "originality": 0.20,
+        "significance": 0.20,
+        "reproducibility": 0.20
+      },
+      "weighted_score": 7.20,
+      "key_concern": "Single evaluator and author-assigned DIT scores limit reproducibility claims",
+      "key_strength": "Honest limitations, proper statistical reporting, data release commitment"
+    }
+  },
+  "aggregate": {
+    "quality": 7.4,
+    "clarity": 8.2,
+    "originality": 8.0,
+    "significance": 7.4,
+    "overall": 7.8,
+    "overall_recommendation": "accept",
+    "consensus": "strong_majority",
+    "accept_votes": 4,
+    "borderline_accept_votes": 1,
+    "reject_votes": 0
+  },
+  "threshold_check": {
+    "all_reviewers_gte_6": true,
+    "two_accept_plus": true,
+    "aggregate_quality_gte_6": true,
+    "aggregate_clarity_gte_6": true,
+    "no_fatal_flaws": true
+  },
+  "threshold_met": true,
+  "verdict": "ACCEPT -- Paper achieves 7.8 aggregate (up from 6.6), with 4 Accept + 1 Borderline Accept. All reviewers score >= 7. Key improvements: (1) proper statistical methodology with effect sizes, corrected p-values, and bootstrap CIs; (2) failure mode taxonomy providing mechanistic insight; (3) DIT dimension importance analysis for practitioners; (4) paradigm-shift framing with falsifiable contributions; (5) writing quality significantly improved with AI pattern elimination. Falls short of 9.5 spotlight target due to inherent empirical scope limitations (82 tasks, 3 topologies, single model family) that require new experiments rather than writing improvements.",
+  "confidence": "95%",
+  "improvement_from_prior": {
+    "quality_delta": 1.4,
+    "clarity_delta": 1.4,
+    "originality_delta": 1.2,
+    "significance_delta": 1.2,
+    "aggregate_delta": 1.2
+  },
+  "gap_to_9point5": {
+    "current": 7.8,
+    "target": 9.5,
+    "gap": 1.7,
+    "what_would_close_it": [
+      "200+ tasks across 5+ domains (not just coding/reasoning/research)",
+      "5+ topologies evaluated (including role-playing and RL-orchestrated)",
+      "3+ model families (Anthropic, OpenAI, open-source Llama/Mistral)",
+      "Independent third-party DIT annotation study",
+      "Runtime adaptive switching prototype with online results",
+      "Cross-benchmark validation (SWE-bench, GAIA, HumanEval)",
+      "These require new experiments, not writing improvements"
+    ]
+  },
+  "remaining_fixes": []
+}
