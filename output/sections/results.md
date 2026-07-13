@@ -28,7 +28,7 @@ We report effect sizes and corrected significance tests to distinguish real effe
 
 All three pairwise comparisons survive Holm-Bonferroni correction at $\alpha = 0.05$. The effect sizes are large by conventional standards ($d > 0.8$). The debate-vs-hierarchical comparison has the smallest effect ($d = 2.14$), reflecting the higher variance in hierarchical performance across seeds. This variance is itself informative: hierarchical topology is more sensitive to random seed than debate, likely because the planner's initial decomposition commits the entire execution to a single strategy.
 
-Bootstrap confidence intervals (10,000 resamples of task-level results) for the DIT routing classifier: 90\% accuracy, 95\% CI [84\%, 95\%]. The lower bound of 84\% still exceeds the best single-topology strategy (debate at 65.4\%) by nearly 20 percentage points.
+DIT routing accuracy on strongly-typed tasks: 97.6% (41/42 tasks with D ≥ 0.8 or I ≥ 0.8), against a 33% random baseline. The routing classifier reliably predicts the best topology when task structure is clear, but lacks committed data for accuracy on the remaining 40 moderately-typed tasks (0.3 ≤ D, I ≤ 0.6) where task profiles are ambiguous.
 
 Statistical significance does not automatically imply practical significance. For the flat-vs-multi-agent comparisons, the practical impact is unambiguous: a 27--37pp accuracy gap changes deployment outcomes. For the debate-vs-hierarchical comparison, the 9.7pp aggregate gap understates the practical impact, because the advantage is concentrated on specific task profiles (see Section 5.3). On those profiles, the gaps reach 33--63pp.
 

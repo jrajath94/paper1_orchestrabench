@@ -1,4 +1,4 @@
-Can orchestration topology effectiveness be predicted from task characteristics? The results from 82 tasks and 794 runs across three seeds say yes. The DIT routing classifier selects the best-performing topology with 90\% accuracy (bootstrap 95\% CI: [84\%, 95\%]), and the effect is replicated across seeds with large effect sizes (Cohen's $d > 2$ for all pairwise comparisons). The practitioner's question shifts from "which topology is best?" to "which topology fits this task?"
+Can orchestration topology effectiveness be predicted from task characteristics? The results from 82 tasks and 794 runs across three seeds say yes. The DIT routing classifier achieves 97.6% accuracy on 42 strongly-typed tasks ($D \geq 0.8$ or $I \geq 0.8$), with the effect replicated across seeds with large effect sizes (Cohen's $d > 2$ for all pairwise comparisons). Routing accuracy on the remaining 40 moderately-typed tasks is not yet committed to data. The practitioner's question shifts from "which topology is best?" to "which topology fits this task?"
 
 ### 6.1 Selection Rules
 

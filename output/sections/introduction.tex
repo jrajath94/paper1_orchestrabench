@@ -22,5 +22,5 @@ This paper makes three contributions:
 \item
   \textbf{OrchestraBench: controlled cross-topology evaluation at scale.} We provide the first head-to-head comparison of three orchestration topologies on 82 custom tasks under strictly controlled conditions (same LLM, same tools, same budget), yielding 794 total runs across three random seeds, two backbones, and an agent-count control experiment. The hypothesis is falsifiable: if topology effectiveness were unrelated to task structure, alignment distance would show no correlation with performance ranking.
 \item
-  \textbf{The first topology selection guide grounded in task characteristics.} A lightweight DIT routing classifier selects the best topology with 90\% accuracy (95\% bootstrap CI: [84\%, 95\%]), against a 33\% random baseline. We distill these predictions into actionable selection rules mapping D-I-T profiles to recommended topologies.
+  \textbf{The first topology selection guide grounded in task characteristics.} A lightweight DIT routing classifier selects the best topology on 42 strongly-typed tasks with 97.6\% accuracy, against a 33\% random baseline. Routing accuracy on the remaining 40 moderately-typed tasks ($0.3 \leq D, I \leq 0.6$) is not yet committed to data. We distill these predictions into actionable selection rules mapping D-I-T profiles to recommended topologies.
 \end{enumerate}
