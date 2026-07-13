@@ -2,26 +2,13 @@
 
 _Which Multi-Agent LLM Topology Fits Which Task?_
 
-> A 794-run benchmark across flat / hierarchical / debate topologies on Claude Opus 4.6 + Sonnet 4.6, plus the **DIT framework** (Decomposability, Iterativeness, Tool-diversity) for predicting which topology fits which task.
+> A research study evaluating three orchestration topologies (flat, hierarchical, debate) on custom task suites, introducing the **DIT framework** (Decomposability, Iterativeness, Tool-diversity) for predicting topology-task fit.
 
-**Target venue:** [NeurIPS 2026](https://neurips.cc/Conferences/2026)  •  **Status:** Submission package compiled (PDF: 298 KB)
-
----
-
-## Headline Numbers
-
-| Metric | Value |
-|---|---|
-| Topologies evaluated | 3 (flat, hierarchical, debate) |
-| Tasks | 82 across coding / research / reasoning |
-| Total runs | 794 (3-seed replication) |
-| Best topology overall | Debate — 65.4% (±0.8) |
-| DIT routing accuracy | 90% |
-| Topology vs compute split | ~2/3 of multi-agent gains attributable to topology, 1/3 to compute |
+**Target venue:** [NeurIPS 2026](https://neurips.cc/Conferences/2026)  •  **Status:** Submission package compiled (PDF: 305 KB)
 
 ## Abstract (excerpt)
 
-Multi-agent LLM systems can be organized into distinct orchestration topologies, yet practitioners have no principled basis for choosing among them. We hypothesize that each topology encodes a structural prior, and that alignment between this prior and a task's measurable characteristics predicts performance. To test this, we introduce OrchestraBench and evaluate three topologies (flat conversation, hierarchical decomposition, and multi-agent debate) on 82 tasks spanning coding, research, and reasoning, with three-seed replication producing 738 primary runs on Claude Opus 4.6, plus secondary-backbone and agent-count controls totaling 794 runs.
+Multi-agent LLM systems can be organized into distinct orchestration topologies, yet practitioners have no principled basis for choosing among them. We hypothesize that each topology encodes a structural prior, and that alignment between this prior and a task's measurable characteristics predicts performance. To test this, we introduce OrchestraBench and evaluate three topologies (flat conversation, hierarchical decomposition, and multi-agent debate) on 82 tasks spanning coding, research, and reasoning.
 
 ## Independent Review (Sakana AI Scientist v2)
 
