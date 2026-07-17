@@ -10,27 +10,6 @@ _Which Multi-Agent LLM Topology Fits Which Task?_
 
 Multi-agent LLM systems can be organized into distinct orchestration topologies, yet practitioners have no principled basis for choosing among them. We hypothesize that each topology encodes a structural prior, and that alignment between this prior and a task's measurable characteristics predicts performance. To test this, we introduce OrchestraBench and evaluate three topologies (flat conversation, hierarchical decomposition, and multi-agent debate) on 82 tasks spanning coding, research, and reasoning.
 
-## Independent Review (Sakana AI Scientist v2)
-
-This paper has been reviewed by [Sakana AI Scientist v2](https://github.com/SakanaAI/AI-Scientist-v2)'s `perform_llm_review` module via the MiniMax-M2.7 backend. The review uses NeurIPS-style reviewer guidelines.
-
-| Metric | Score |
-|---|---|
-| Overall | **7** / 10 |
-| Decision | **Accept** |
-| Soundness | 3 / 4 |
-| Confidence | 4 / 5 |
-
-**Top weaknesses identified:**
-
-- Only 3 of 5 characterized topologies evaluated; role-playing and RL-orchestrated topologies remain unvalidated
-- Tasks are author-created with no third-party annotation; potential for authorship bias
-- Primary evaluation uses only Claude Opus 4.6; Sonnet 4.6 check limited to 12 easy tasks (ceiling effect)
-- DIT scores assigned by authors (κ≥0.79 but no external validation); annotator agreement may not hold across different annotator populations
-- Limited domain coverage (coding, research, reasoning); missing creative generation, long-document analysis, embodied control
-
-> _Full review JSON: [`ai_scientist/reviews/minimax_review.json`](ai_scientist/reviews/minimax_review.json)._
-
 ## Reproducibility
 
 ```bash
@@ -44,9 +23,7 @@ tectonic output/paper.tex   # produces output/paper.pdf
 # Browse the materials:
 #   output/sections/   — per-section markdown + .tex
 #   output/figures/    — figures (PDF + PNG)
-#   output/reviews/    — citation, data, math, figure, AI-pattern audits
 #   experiments/       — task suite + results JSON
-#   ai_scientist/      — Sakana AI Scientist v2 review pipeline outputs
 ```
 
 
@@ -56,15 +33,13 @@ tectonic output/paper.tex   # produces output/paper.pdf
 paper1_orchestrabench/
 ├── README.md              ← you are here
 ├── paper.pdf              ← compiled PDF
-├── output/                ← LaTeX source, sections, figures, reviews, bibliography
+├── output/                ← LaTeX source, sections, figures, bibliography
 │   ├── paper.tex / main.tex
 │   ├── sections/
 │   ├── figures/
-│   ├── reviews/           (audits: citation, data, math, figure, consistency, AI patterns)
 │   └── bibliography.bib / references.bib
 ├── experiments/           ← task suite + results data
 ├── scripts/               ← pipeline scripts (literature retrieval, citation verification, etc.)
-├── ai_scientist/          ← Sakana AI Scientist v2 outputs (independent review JSON)
 ├── state/                 ← paper state and pipeline log
 └── venues/                ← venue configs (NeurIPS / TMLR / JAIR formatting rules)
 ```
@@ -73,7 +48,6 @@ paper1_orchestrabench/
 
 This paper was developed with a custom multi-agent research pipeline using:
 - **Claude Opus 4.6 / Sonnet 4.6** (via [Claude Code](https://www.anthropic.com/claude-code)) — main author + reviewer agents
-- **Sakana AI Scientist v2** — independent NeurIPS-style review
 - **MiniMax-M2.7** — bulk-pass review and ideation calls
 - **Tectonic** — LaTeX compilation
 - **Semantic Scholar / OpenAlex / CrossRef** APIs for citation verification
