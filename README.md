@@ -47,9 +47,9 @@ paper1_orchestrabench/
 ## Tooling
 
 This paper was developed with a custom multi-agent research pipeline using:
-- **Claude Opus 4.6 / Sonnet 4.6** (via [Claude Code](https://www.anthropic.com/claude-code)) — main author + reviewer agents
-- **MiniMax-M2.7** — bulk-pass review and ideation calls
-- **Tectonic** — LaTeX compilation
+- **Claude Opus 4.6 / Sonnet 4.6** (via [Claude Code](https://www.anthropic.com/claude-code)) - main author + reviewer agents
+- **MiniMax-M2.7** - bulk-pass review and ideation calls
+- **Tectonic** - LaTeX compilation
 - **Semantic Scholar / OpenAlex / CrossRef** APIs for citation verification
 
 ## Part of the Multi-Agent Orchestration paper series
